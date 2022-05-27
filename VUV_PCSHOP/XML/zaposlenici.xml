@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<vuv_pcshop>
+  <osoba>
+    <zaposlenici>
+      <zaposlenik oib="123" ime="Đurica" prezime="Dakić" sifrazaposlenika="1" />
+    </zaposlenici>
+  </osoba>
+</vuv_pcshop>

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace VUV_PCSHOP
 {
-    class Stavka
+    class Stavka:Racun
     {
+
     }
 }
