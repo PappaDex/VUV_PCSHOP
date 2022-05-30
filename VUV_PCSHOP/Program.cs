@@ -10,6 +10,16 @@ namespace VUV_PCSHOP
         {
           public  static Zaposlenik prijavljeni;
         }
+        static class FileLocation
+        {
+            public static string lokacija;
+        }
+        static void LokacijaDatoteke()
+        {
+            string lokacija =Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            lokacija = Path.GetDirectoryName(lokacija);
+            FileLocation.lokacija = lokacija;
+        }
         static void Startup(ref List<Zaposlenik>zaposlenici)
         {
             try
@@ -67,8 +77,10 @@ namespace VUV_PCSHOP
         }
         static void SpremanjeUliste(ref List<Zaposlenik> zaposlenici)
         {
+            string lok = FileLocation.lokacija + "\\XML\\zaposlenici.xml";
+           
             string xml = "";
-            StreamReader sr = new StreamReader("C:\\Users\\dakic\\source\\repos\\VUV_PCSHOP\\VUV_PCSHOP\\XML\\zaposlenici.xml");
+            StreamReader sr = new StreamReader(lok);
             using(sr)
             {
                 xml=sr.ReadToEnd();
@@ -77,11 +89,21 @@ namespace VUV_PCSHOP
             XmlDocument xmlObject = new XmlDocument();
             xmlObject.LoadXml(xml);
             XmlNodeList zaposlenik = xmlObject.SelectNodes("//vuv_pcshop/osoba/zaposlenici/zaposlenik");
+        foreach(XmlNode zap in zaposlenik)
+            {
+                zaposlenici.Add(new Zaposlenik(
+                    zap.Attributes["oib"].Value,
+                    zap.Attributes["ime"].Value,
+                    zap.Attributes["prezime"].Value,
+                    zap.Attributes["sifrazaposlenika"].Value
+                    ));
+            }
         }
+        
         static void SpremanjeUXML(ref List<Zaposlenik> zaposlenici)
         {
             string xml = "";
-            StreamReader sr = new StreamReader("C:\\Users\\dakic\\source\\repos\\VUV_PCSHOP\\VUV_PCSHOP\\XML\\zaposlenici.xml");
+            StreamReader sr = new StreamReader(FileLocation.lokacija+"\\XML\\zaposlenici.xml");
             using (sr)
             {
                 xml = sr.ReadToEnd();
@@ -89,7 +111,7 @@ namespace VUV_PCSHOP
             sr.Close();
             XmlDocument xmlObject = new XmlDocument();
             xmlObject.LoadXml(xml);
-            string lokacijaxmla = "C:\\Users\\dakic\\source\\repos\\VUV_PCSHOP\\VUV_PCSHOP\\XML\\zaposlenici.xml";
+            string lokacijaxmla = FileLocation.lokacija+"\\XML\\zaposlenici.xml";
             XmlNode zaposleniciNode = xmlObject.SelectSingleNode("//vuv_pcshop/osoba/zaposlenici");
             zaposleniciNode.RemoveAll();
             foreach(Zaposlenik zaposlenik in zaposlenici)
@@ -149,8 +171,10 @@ namespace VUV_PCSHOP
         }
         static void Main(string[] args)
         {
+            LokacijaDatoteke();
             List<Zaposlenik> zaposlenici = new List<Zaposlenik>();
             List<Artikl> sviartikli = new List<Artikl>();
+            SpremanjeUliste(ref zaposlenici);
             Startup(ref zaposlenici);
             SpremanjeUXML(ref zaposlenici);
         }

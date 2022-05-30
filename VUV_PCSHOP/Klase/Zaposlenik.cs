@@ -25,7 +25,14 @@ namespace VUV_PCSHOP
         //    get { return _prezime; }
         //    set { _prezime = value; }
         //}
-
+        public Zaposlenik(string oib, string ime, string prezime, string sifra)
+        {
+            _oib = oib;
+            _ime = ime;
+            _prezime = prezime;
+            _sifrazaposlenika = sifra;
+        }
+      
         public string Oib
         {
             get { return _oib; }
@@ -54,13 +61,7 @@ namespace VUV_PCSHOP
             string punoime = _ime + " " + _prezime;
             return punoime; 
         }
-        public  Zaposlenik(string oib,string ime,string prezime,string sifra)
-        { 
-            _oib = oib;
-            _ime = ime;
-            _prezime = prezime;
-            _sifrazaposlenika = sifra;
-        }
+     
 
     }
 }
