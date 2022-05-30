@@ -20,7 +20,61 @@ namespace VUV_PCSHOP
             lokacija = Path.GetDirectoryName(lokacija);
             FileLocation.lokacija = lokacija;
         }
-        static void Startup(ref List<Zaposlenik>zaposlenici)
+        static void DodavanjeArtikla(ref List<Artikl> sviartikli)
+        {
+            try
+            {
+                do
+                {
+                    Console.WriteLine("Odaberite Kategoriju:" +
+                        "\n1.Laptopi,Racunala" +
+                        "\n2.Komponente" +
+                        "\n3.Konzole" +
+                        "\n4.Monitori,Periferija" +
+                       
+                        "\nESC.Exit");
+                   
+                   
+                    string izbor = Console.ReadLine();
+                    int izb;
+                    if (int.TryParse(izbor, out izb) == true)
+                    {   Console.WriteLine("Naziv:");
+                            string naziv = Console.ReadLine();
+                            Console.WriteLine("Opis:");
+                            string opis = Console.ReadLine();
+                            Console.WriteLine("Jedinica Mjere:");
+                            string mjera = Console.ReadLine();
+                            Console.WriteLine("Kolicina:");
+                            int kolicina=Convert.ToInt32(Console.ReadLine());
+                            Artikl noviartikl = new Artikl(naziv,opis,mjera,kolicina);
+                        izb = Convert.ToInt32(izbor);
+                        noviartikl.AddKategorija(izb, noviartikl);
+                        sviartikli.Add(noviartikl);
+                        
+                         
+                       
+                        
+                 
+                      
+                        Console.Clear();
+                        break;
+
+                    }
+                    else
+                    {
+
+                    }
+
+                } while (Console.ReadKey().Key != ConsoleKey.Escape);
+                Console.Clear();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        static void Startup(ref List<Zaposlenik>zaposlenici,ref List<Artikl>sviartikli)
         {
             try
             {
@@ -28,7 +82,8 @@ namespace VUV_PCSHOP
                 {
                     odabir:
                     int i = 1;
-                    Console.WriteLine("Odaberite zaposlenika:");
+                    Console.WriteLine("Odaberite zaposlenika:" +
+                        "\nESC.Logout");
                     foreach(Zaposlenik z in zaposlenici)
                     {
                         Console.WriteLine(i+"."+z.IspisPunogImena());
@@ -57,7 +112,10 @@ namespace VUV_PCSHOP
                         Console.WriteLine("Odabir uspjesan!"+PrijaveljniZaposlenik.prijavljeni.IspisPunogImena());
                         Console.ReadKey();
                         Console.Clear();
-                        Izbornik();
+
+
+
+                        Izbornik(ref sviartikli);
                         break;
                     
                     }
@@ -66,7 +124,7 @@ namespace VUV_PCSHOP
 
                     }
                     
-                } while (true);
+                } while (Console.ReadKey().Key != ConsoleKey.Escape);
 
             }
             catch (Exception)
@@ -75,7 +133,7 @@ namespace VUV_PCSHOP
                 throw;
             }
         }
-        static void SpremanjeUliste(ref List<Zaposlenik> zaposlenici)
+        static void SpremanjeUliste(ref List<Zaposlenik> zaposlenici,ref List<Artikl>sviartikli)
         {
             string lok = FileLocation.lokacija + "\\XML\\zaposlenici.xml";
            
@@ -134,7 +192,7 @@ namespace VUV_PCSHOP
                     }
             xmlObject.Save(lokacijaxmla);
         }
-        static void Izbornik()
+        static void Izbornik(ref List<Artikl>artikli)
         {
             try
             {
@@ -154,6 +212,14 @@ namespace VUV_PCSHOP
                     if (int.TryParse(switch1, out sw1int) == true)
                     {
                         sw1int = Convert.ToInt32(switch1);
+                        switch (sw1int)
+                        {
+                            case 1:
+                                DodavanjeArtikla(ref artikli);
+                                break;
+                            default:
+                                break;
+                        }
                     }
 
                     Console.Clear();
@@ -174,8 +240,9 @@ namespace VUV_PCSHOP
             LokacijaDatoteke();
             List<Zaposlenik> zaposlenici = new List<Zaposlenik>();
             List<Artikl> sviartikli = new List<Artikl>();
-            SpremanjeUliste(ref zaposlenici);
-            Startup(ref zaposlenici);
+          
+            SpremanjeUliste(ref zaposlenici,ref sviartikli);
+            Startup(ref zaposlenici,ref sviartikli);
             SpremanjeUXML(ref zaposlenici);
         }
     }
