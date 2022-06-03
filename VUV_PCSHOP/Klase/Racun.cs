@@ -6,9 +6,10 @@ namespace VUV_PCSHOP
 {
     class Racun
     {
-        private string _sifraracuna { get; set; }
-        private string _sifrazaposlenika { get; set; }
-        private double _ukupaniznos { get; set; }
-        private DateTime _datum { get; set; }
+        private string _sifraracuna;
+        private string _sifrazaposlenika;
+        private double _ukupaniznos;
+        private DateTime _datum;
+        private List<Stavka> stavke;
     }
 }

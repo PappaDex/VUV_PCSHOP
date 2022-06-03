@@ -6,58 +6,57 @@ namespace VUV_PCSHOP
 {
     class Artikl
     {
-        
-        public static Dictionary<string,List<Artikl>> _kategorija { get; set; }
+
+        private string _kategorija;
       
-        private string _naziv { get; set; }
-        private string _opis { get; set; }
-        private string _jedinicamjere { get; set; }
-        private int _kolicina { get; set; }
- 
+        private string _naziv;
+        private string _opis;
+        private string _jedinicamjere;
+        private double _kolicina;
+
         //private Dictionary<string, Artikl> kategorije { get; set; }
-        public Artikl(string naziv,string opis,string jedinicamjere,int kolicina)
+        public Artikl(string naziv,string opis,string jedinicamjere,double kolicina)
         {
             _naziv = naziv;
             _opis = opis;
             _jedinicamjere = jedinicamjere;
             _kolicina = kolicina;
         }
+        public Artikl(string kategorija,string naziv,string opis,string jedinicamjere,double kolicina)
+        {
+            _kategorija = kategorija;
+            _naziv = naziv;
+            _opis = opis;
+            _jedinicamjere = jedinicamjere;
+            _kolicina = kolicina;
+        }
         public Artikl() { }
-        public void Sortiranje() 
+        public string Kategorija
         {
+            get { return _kategorija; }
+        }
+        public string Naziv
+        {
+            get { return _naziv; }
+        }
+        public string Opis
+        {
+            get { return _opis; }
+        }
+        public string JedinicaMjere
+        {
+            get { return _jedinicamjere; }
+        }
+        public double Kolicina
+        {
+            get { return _kolicina; }
+        }
+        public void DodavanjeKategorije(string kljuckat) 
+        {
+            _kategorija = kljuckat;
         
-        
         }
-        public void AddKategorija(int izb, Artikl noviartikl)
-        {
-            _kategorija.Add("Laptopi,Racunala", null);
-            _kategorija.Add("Komponente", null);
-            _kategorija.Add("Konzole", null);
-            _kategorija.Add("Monitori,Periferija", null);
-            if(izb==1)
-            {
-                _kategorija["Laptopi,Racunala"].Add(noviartikl);
-            }
-            if(izb==2)
-            {
-                _kategorija["Komponente"].Add(noviartikl);
-            }
-            if(izb==3)
-            {
-                _kategorija["Konzole"].Add(noviartikl);
-            }
-            if(izb==4)
-            {
-                _kategorija["Monitori,Periferija"].Add(noviartikl);
-            }
-
-        }
-        public void IspisKategorija()
-        {
-            foreach (KeyValuePair<string, List<Artikl>> elem in _kategorija)
-            {
-                Console.WriteLine("KLJUC:{0}\n Vrijednost:{1}", elem.Key, elem.Value);
-            }
-        }
+     
+      
     }
 }
