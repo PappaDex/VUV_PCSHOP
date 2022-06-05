@@ -11,5 +11,14 @@ namespace VUV_PCSHOP
         private double _ukupaniznos;
         private DateTime _datum;
         private List<Stavka> stavke;
+    
+        public Racun()
+        {
+            stavke = new List<Stavka>();
+        }
+    public void DodavanjeStavke(Stavka stavka) 
+        {
+            stavke.Add(stavka);
+        }
     }
 }

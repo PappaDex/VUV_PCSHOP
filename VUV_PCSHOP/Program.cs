@@ -29,44 +29,31 @@ namespace VUV_PCSHOP
             kategorije.Add("SOF", "Software,Kablovi");
 
         }
-        static void DodavanjeArtikla(ref List<Artikl> sviartikli,ref Dictionary<string,string>kategorije)
+        static void KreiranjeRacuna(ref List<Racun> racuni,ref Dictionary<string,string>kategorije,ref List<Artikl>artikli) 
         {
             try
             {
-                List<string> kljuckat = new List<string>();
-                int i = 1;
+                
+
                 do
                 {
-                    Console.WriteLine("Odaberite Kategoriju:");
-                    foreach(KeyValuePair<string,string> kategorija in kategorije)
-                    {
-
-                        Console.WriteLine(i+"."+kategorija.Value);
-                        kljuckat.Add(kategorija.Value);
-                        i++;
-                    }
+                    Console.WriteLine("Odabir:" +
+                        "\n1.Dodavanje Stavki" +
+                        "\n2.Zavrsi Racun");
+                  
+                   
                     string izbor = Console.ReadLine();
                     int izb;
-                    if (int.TryParse(izbor, out izb) == true)
-                    {   Console.WriteLine("Naziv:");
-                            string naziv = Console.ReadLine();
-                            Console.WriteLine("Opis:");
-                            string opis = Console.ReadLine();
-                            Console.WriteLine("Jedinica Mjere:");
-                            string mjera = Console.ReadLine();
-                            Console.WriteLine("Jedinicna cijena:");
-                            double kolicina=Convert.ToInt32(Console.ReadLine());
-                            Artikl noviartikl = new Artikl(naziv,opis,mjera,kolicina);
-                        izb = Convert.ToInt32(izbor);
-                        noviartikl.DodavanjeKategorije(kljuckat[i - 1]);
-                        sviartikli.Add(noviartikl);
+                    if (int.TryParse(izbor, out izb) == true)                    {
                         
-                         
-                       
-                        
-                 
-                      
-                        Console.Clear();
+                        switch(izb)
+                        {
+                            case 1:
+                                DodavanjeStavki(ref kategorije, ref artikli,ref racuni);
+                                break;
+
+                        }
+                     
                         break;
 
                     }
@@ -84,7 +71,128 @@ namespace VUV_PCSHOP
                 throw;
             }
         }
-        static void Startup(ref List<Zaposlenik>zaposlenici,ref List<Artikl>sviartikli,ref Dictionary<string,string>kategorije)
+        static void DodavanjeStavki(ref Dictionary<string,string>kategorije,ref List<Artikl>artikli,ref List<Racun>racuni)
+        {
+            try
+            {
+                List<Artikl> artikliukat = new List<Artikl>();
+                List<Stavka> stavke = new List<Stavka>();
+                List<string> kljuckat = new List<string>();
+                Racun r1 = new Racun();
+                int i = 1;
+                Console.WriteLine("Odaberite Kategoriju:");
+                foreach (KeyValuePair<string, string> kategorija in kategorije)
+                {
+
+                    Console.WriteLine(i + "." + kategorija.Value);
+                    kljuckat.Add(kategorija.Key);
+                    i++;
+                }
+
+                string izbor = Console.ReadLine();
+                int izb;
+                if (int.TryParse(izbor, out izb) == true)
+                {
+                    do
+                    {
+                        izb = Convert.ToInt32(izbor);
+                        int j = 1;
+                        Console.WriteLine("Odaberi Artikl:");
+                        foreach (Artikl art in artikli)
+                        {
+                            if (art.Kategorija == kljuckat[izb - 1])
+                            {
+                                Console.WriteLine(j + "." + art.Naziv +
+                                    "\nOpis:" + art.Opis);
+                                artikliukat.Add(art);
+                                j++;
+                            
+                            }
+
+                        }
+                        izbor = Console.ReadLine();
+                        if (int.TryParse(izbor, out izb) == true)
+                        {
+                            izb = Convert.ToInt32(izbor);
+                            
+                            Console.Write("Kolicina:");
+                            int kol = Convert.ToInt32(Console.ReadLine());
+                            Stavka s1 = new Stavka(artikliukat[izb-1],kol);
+                            r1.DodavanjeStavke(s1);
+                        }    
+                            Console.WriteLine("ESC-izlaz");
+                        artikliukat.Clear();
+                    } while (Console.ReadKey().Key != ConsoleKey.Escape);
+                    racuni.Add(r1);
+
+                }
+
+
+
+            }
+
+
+
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        static void DodavanjeArtikla(ref List<Artikl> sviartikli,ref Dictionary<string,string>kategorije)
+        {
+            try
+            {
+               
+                do
+                {
+                    List<string> kljuckat = new List<string>();
+                    int i = 1;
+                    Console.WriteLine("Odaberite Kategoriju:");
+                    foreach(KeyValuePair<string,string> kategorija in kategorije)
+                    {
+
+                        Console.WriteLine(i+"."+kategorija.Value);
+                        kljuckat.Add(kategorija.Key);
+                        i++;
+                    }
+                    string izbor = Console.ReadLine();
+                    int izb;
+                    if (int.TryParse(izbor, out izb) == true)
+                    {   Console.WriteLine("Naziv:");
+                            string naziv = Console.ReadLine();
+                            Console.WriteLine("Opis:");
+                            string opis = Console.ReadLine();
+                            Console.WriteLine("Jedinica Mjere:");
+                            string mjera = Console.ReadLine();
+                            Console.WriteLine("Jedinicna cijena:");
+                            double kolicina=Convert.ToDouble(Console.ReadLine());
+                            Artikl noviartikl = new Artikl(naziv,opis,mjera,kolicina);
+                        izb = Convert.ToInt32(izbor);
+                        noviartikl.DodavanjeKategorije(kljuckat[izb - 1]);
+                        sviartikli.Add(noviartikl);
+                        Console.WriteLine("Dodavanje Uspjesno!");
+                        Console.ReadKey();
+                        Console.Clear();
+                        
+                        break;
+
+                    }
+                    else
+                    {
+
+                    }
+
+                } while (Console.ReadKey().Key != ConsoleKey.Escape);
+                Console.Clear();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        static void Startup(ref List<Zaposlenik>zaposlenici,ref List<Artikl>sviartikli,ref Dictionary<string,string>kategorije,ref List<Racun>racuni)
         {
             try
             {
@@ -111,7 +219,7 @@ namespace VUV_PCSHOP
                             string imez=Console.ReadLine();
                             Console.WriteLine("Prezime:");
                             string prezimez=Console.ReadLine();
-                            Console.WriteLine("Sigra Zaposlenika:");
+                            Console.WriteLine("Sifra Zaposlenika:");
                             string sifraz=Console.ReadLine();
                             Zaposlenik novizaposlenik = new Zaposlenik(oibz, imez, prezimez, sifraz);
                             zaposlenici.Add(novizaposlenik);
@@ -125,7 +233,7 @@ namespace VUV_PCSHOP
 
 
 
-                        Izbornik(ref sviartikli,ref kategorije);
+                        Izbornik(ref sviartikli,ref kategorije,ref racuni);
                         break;
                     
                     }
@@ -186,8 +294,30 @@ namespace VUV_PCSHOP
                     art.Attributes["naziv"].Value,
                     art.Attributes["opis"].Value,
                     art.Attributes["jedinicamjere"].Value,
-                  Convert.ToInt32(art.Attributes["kolicina"].Value)
+                  Convert.ToInt32(art.Attributes["cijena"].Value)
                     ));;
+            }
+        } 
+        static void SaveDictKategorije(ref Dictionary<string,string>kategorija)
+        {
+            string lok = FileLocation.lokacija + "\\XML\\kategorije.xml";
+            string xml = "";
+            StreamReader sr = new StreamReader(lok);
+            using(sr)
+            {
+                xml=sr.ReadToEnd();
+            }
+            sr.Close();
+            XmlDocument xmlObject = new XmlDocument();
+            xmlObject.LoadXml(xml);
+            XmlNodeList kate = xmlObject.SelectNodes("//vuv_pcshop/kategorije/kategorija");
+        foreach(XmlNode kat in kate)
+            {
+                kategorija.Add(
+                    kat.Attributes["kljuc"].Value,
+                    kat.Attributes["vrijednost"].Value
+
+                    );
             }
         }
         
@@ -254,47 +384,15 @@ namespace VUV_PCSHOP
                 XmlAttribute jedmjerAttr = xmlObject.CreateAttribute("jedinicamjere");
                 jedmjerAttr.Value = artikl.JedinicaMjere.ToString();
                 noviNode.Attributes.Append(jedmjerAttr);
-                XmlAttribute kolAttr = xmlObject.CreateAttribute("kolicina");
-                kolAttr.Value = artikl.Kolicina.ToString();
-                noviNode.Attributes.Append(kolAttr);
+                XmlAttribute cijAttr = xmlObject.CreateAttribute("cijena");
+                cijAttr.Value = artikl.Cijena.ToString();
+                noviNode.Attributes.Append(cijAttr);
 
                 artikliNode.AppendChild(noviNode);
                     }
             xmlObject.Save(lokacijaxmla);
-        }static void SpremanjeUXMLracuni(ref List<Zaposlenik> zaposlenici)
-        {
-            string xml = "";
-            StreamReader sr = new StreamReader(FileLocation.lokacija+"\\XML\\zaposlenici.xml");
-            using (sr)
-            {
-                xml = sr.ReadToEnd();
-            }
-            sr.Close();
-            XmlDocument xmlObject = new XmlDocument();
-            xmlObject.LoadXml(xml);
-            string lokacijaxmla = FileLocation.lokacija+"\\XML\\zaposlenici.xml";
-            XmlNode zaposleniciNode = xmlObject.SelectSingleNode("//vuv_pcshop/osoba/zaposlenici");
-            zaposleniciNode.RemoveAll();
-            foreach(Zaposlenik zaposlenik in zaposlenici)
-            {
-                XmlNode noviNode = xmlObject.CreateNode(XmlNodeType.Element, "zaposlenik", null);
-                XmlAttribute oibAttr = xmlObject.CreateAttribute("oib");
-                oibAttr.Value = zaposlenik.Oib.ToString();
-                noviNode.Attributes.Append(oibAttr);
-                XmlAttribute imeAttr = xmlObject.CreateAttribute("ime");
-                imeAttr.Value = zaposlenik.Ime.ToString();
-                noviNode.Attributes.Append(imeAttr);
-                XmlAttribute prezimeAttr = xmlObject.CreateAttribute("prezime");
-                prezimeAttr.Value = zaposlenik.Prezime.ToString();
-                noviNode.Attributes.Append(prezimeAttr);
-                XmlAttribute sifraAttr = xmlObject.CreateAttribute("sifrazaposlenika");
-                sifraAttr.Value = zaposlenik.Sifrazaposlenika.ToString();
-                noviNode.Attributes.Append(sifraAttr);
-
-                zaposleniciNode.AppendChild(noviNode);
-                    }
-            xmlObject.Save(lokacijaxmla);
-        }static void SpremanjeUXMLkategorije(ref List<Zaposlenik> zaposlenici)
+        }
+        static void SpremanjeUXMLracuni(ref List<Zaposlenik> zaposlenici)
         {
             string xml = "";
             StreamReader sr = new StreamReader(FileLocation.lokacija+"\\XML\\zaposlenici.xml");
@@ -328,7 +426,34 @@ namespace VUV_PCSHOP
                     }
             xmlObject.Save(lokacijaxmla);
         }
-        static void Izbornik(ref List<Artikl>artikli,ref Dictionary<string,string>kategorije)
+        static void SpremanjeUXMLkategorije(ref Dictionary<string,string> kategorije)
+        {
+            string xml = "";
+            StreamReader sr = new StreamReader(FileLocation.lokacija+"\\XML\\kategorije.xml");
+            using (sr)
+            {
+                xml = sr.ReadToEnd();
+            }
+            sr.Close();
+            XmlDocument xmlObject = new XmlDocument();
+            xmlObject.LoadXml(xml);
+            string lokacijaxmla = FileLocation.lokacija+"\\XML\\kategorije.xml";
+            XmlNode kategorijeNode = xmlObject.SelectSingleNode("//vuv_pcshop/kategorije");
+            kategorijeNode.RemoveAll();
+            foreach(KeyValuePair<string,string> kategorija in kategorije)
+            {
+                XmlNode noviNode = xmlObject.CreateNode(XmlNodeType.Element, "kategorija", null);
+                XmlAttribute kljucAttr = xmlObject.CreateAttribute("kljuc");
+                kljucAttr.Value = kategorija.Key.ToString();
+                noviNode.Attributes.Append(kljucAttr);
+                XmlAttribute vrjAttr = xmlObject.CreateAttribute("vrijednost");
+                vrjAttr.Value = kategorija.Value.ToString();
+                noviNode.Attributes.Append(vrjAttr);
+                kategorijeNode.AppendChild(noviNode);
+                    }
+            xmlObject.Save(lokacijaxmla);
+        }
+        static void Izbornik(ref List<Artikl>artikli,ref Dictionary<string,string>kategorije,ref List<Racun>racuni)
         {
             try
             {
@@ -338,7 +463,7 @@ namespace VUV_PCSHOP
                 {
                     Console.WriteLine("" +
                     "1.Dodavanje/Azuriranje/Brisanje Artikla" +
-                    "\n2.Pregled artikala" +
+                    "\n2.Pregled artikala" + 
                     "\n3.Kreiraj Racun" +
                     "\n4.Pregled racuna po zaposleniku" +
                     "\nESC.izlaz");
@@ -347,12 +472,17 @@ namespace VUV_PCSHOP
                     int sw1int;
                     if (int.TryParse(switch1, out sw1int) == true)
                     {
-                        sw1int = Convert.ToInt32(switch1);
+                        
                         switch (sw1int)
                         {
                             case 1:
+                                Console.Clear();
                                 DodavanjeArtikla(ref artikli,ref kategorije);
                                 break;
+                            case 3:
+                                Console.Clear();
+                                KreiranjeRacuna(ref racuni,ref kategorije,ref artikli);
+                                    break;
                             default:
                                 break;
                         }
@@ -376,12 +506,16 @@ namespace VUV_PCSHOP
             LokacijaDatoteke();
             List<Zaposlenik> zaposlenici = new List<Zaposlenik>();
             List<Artikl> sviartikli = new List<Artikl>();
+            List<Racun> racuni = new List<Racun>();
             Dictionary<string, string> kategorija = new Dictionary<string, string>();
+            //PopisKategorija(ref kategorija);
+            SaveDictKategorije(ref kategorija);
             SaveListZaposlenici(ref zaposlenici);
-            SaveListArtikli(ref sviartikli);
-            Startup(ref zaposlenici,ref sviartikli,ref kategorija);
+            SaveListArtikli(ref sviartikli);    
+            Startup(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
             SpremanjeUXMLzaposlenike(ref zaposlenici);
             SpremanjeUXMLartikle(ref sviartikli);
+            SpremanjeUXMLkategorije(ref kategorija);
         }
     }
 }

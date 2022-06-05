@@ -1,4 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
-
+  <kategorije>
+    <kategorija kljuc="LAP" vrijednost="Laptopi,Racunala" />
+    <kategorija kljuc="KOM" vrijednost="Komponente" />
+    <kategorija kljuc="KON" vrijednost="Konzole" />
+    <kategorija kljuc="MON" vrijednost="Monitori,Periferija" />
+    <kategorija kljuc="SOF" vrijednost="Software,Kablovi" />
+  </kategorije>
 </vuv_pcshop>

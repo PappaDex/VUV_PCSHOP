@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
-	<artikli>
-		
-	</artikli>
+  <artikli>
+    <artikl kategorija="LAP" naziv="Laptop COOL" opis="Odlican Uredski laptop" jedinicamjere="kol" cijena="3699" />
+  </artikli>
 </vuv_pcshop>

@@ -12,23 +12,23 @@ namespace VUV_PCSHOP
         private string _naziv;
         private string _opis;
         private string _jedinicamjere;
-        private double _kolicina;
+        private double _cijena;
 
         //private Dictionary<string, Artikl> kategorije { get; set; }
-        public Artikl(string naziv,string opis,string jedinicamjere,double kolicina)
+        public Artikl(string naziv,string opis,string jedinicamjere,double cijena)
         {
             _naziv = naziv;
             _opis = opis;
             _jedinicamjere = jedinicamjere;
-            _kolicina = kolicina;
+            _cijena = cijena;
         }
-        public Artikl(string kategorija,string naziv,string opis,string jedinicamjere,double kolicina)
+        public Artikl(string kategorija,string naziv,string opis,string jedinicamjere,double cijena)
         {
             _kategorija = kategorija;
             _naziv = naziv;
             _opis = opis;
             _jedinicamjere = jedinicamjere;
-            _kolicina = kolicina;
+            _cijena = cijena;
         }
         public Artikl() { }
         public string Kategorija
@@ -47,9 +47,9 @@ namespace VUV_PCSHOP
         {
             get { return _jedinicamjere; }
         }
-        public double Kolicina
+        public double Cijena
         {
-            get { return _kolicina; }
+            get { return _cijena; }
         }
         public void DodavanjeKategorije(string kljuckat) 
         {
