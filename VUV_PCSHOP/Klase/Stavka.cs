@@ -16,5 +16,13 @@ namespace VUV_PCSHOP
             _kolicina = kolicina;
             _ukupnacijena = (double)artikl.Cijena * kolicina;
         }
+        public int Kolicina
+        {
+            get { return _kolicina; }
+        }
+        public double Ukupnacijena
+        {
+            get { return _ukupnacijena; }
+        }
     }
 }

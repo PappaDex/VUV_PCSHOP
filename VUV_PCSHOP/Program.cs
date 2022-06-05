@@ -392,10 +392,10 @@ namespace VUV_PCSHOP
                     }
             xmlObject.Save(lokacijaxmla);
         }
-        static void SpremanjeUXMLracuni(ref List<Zaposlenik> zaposlenici)
+        static void SpremanjeUXMLracuni(ref List<Racun> racuni)
         {
             string xml = "";
-            StreamReader sr = new StreamReader(FileLocation.lokacija+"\\XML\\zaposlenici.xml");
+            StreamReader sr = new StreamReader(FileLocation.lokacija+"\\XML\\racuni.xml");
             using (sr)
             {
                 xml = sr.ReadToEnd();
@@ -403,26 +403,50 @@ namespace VUV_PCSHOP
             sr.Close();
             XmlDocument xmlObject = new XmlDocument();
             xmlObject.LoadXml(xml);
-            string lokacijaxmla = FileLocation.lokacija+"\\XML\\zaposlenici.xml";
-            XmlNode zaposleniciNode = xmlObject.SelectSingleNode("//vuv_pcshop/osoba/zaposlenici");
-            zaposleniciNode.RemoveAll();
-            foreach(Zaposlenik zaposlenik in zaposlenici)
+            string lokacijaxmla = FileLocation.lokacija+"\\XML\\racuni.xml";
+            XmlNode racuniNode = xmlObject.SelectSingleNode("//vuv_pcshop/racuni");
+            XmlNode stavkeNode = xmlObject.SelectSingleNode("//vuv_pcshop/racuni/racun");
+            racuniNode.RemoveAll();
+            foreach(Racun rac in racuni)
             {
-                XmlNode noviNode = xmlObject.CreateNode(XmlNodeType.Element, "zaposlenik", null);
-                XmlAttribute oibAttr = xmlObject.CreateAttribute("oib");
-                oibAttr.Value = zaposlenik.Oib.ToString();
-                noviNode.Attributes.Append(oibAttr);
-                XmlAttribute imeAttr = xmlObject.CreateAttribute("ime");
-                imeAttr.Value = zaposlenik.Ime.ToString();
-                noviNode.Attributes.Append(imeAttr);
-                XmlAttribute prezimeAttr = xmlObject.CreateAttribute("prezime");
-                prezimeAttr.Value = zaposlenik.Prezime.ToString();
-                noviNode.Attributes.Append(prezimeAttr);
-                XmlAttribute sifraAttr = xmlObject.CreateAttribute("sifrazaposlenika");
-                sifraAttr.Value = zaposlenik.Sifrazaposlenika.ToString();
-                noviNode.Attributes.Append(sifraAttr);
+                List<Stavka> s1 = new List<Stavka>();
+                s1 = rac.Stavke;
+                XmlNode noviNode = xmlObject.CreateNode(XmlNodeType.Element, "racun", null);
+                XmlAttribute sifrazaposlenikaAttr = xmlObject.CreateAttribute("sifrazaposlenika");
+                sifrazaposlenikaAttr.Value = rac.Sifrazaposlenika.ToString();
+                noviNode.Attributes.Append(sifrazaposlenikaAttr);
+                XmlAttribute sifraracunaAttr = xmlObject.CreateAttribute("sifraracuna");
+                sifraracunaAttr.Value = rac.Sifraracuna.ToString();
+                noviNode.Attributes.Append(sifraracunaAttr);
+                XmlAttribute ukupaniznosAttr = xmlObject.CreateAttribute("ukupaniznos");
+                ukupaniznosAttr.Value = rac.Ukupaniznos.ToString();
+                noviNode.Attributes.Append(ukupaniznosAttr);
+                XmlAttribute datumAttr = xmlObject.CreateAttribute("datum");
+                datumAttr.Value = rac.Datum.ToString();
+                noviNode.Attributes.Append(datumAttr);
+                foreach (Stavka sta in s1)
+                {
+                    XmlNode novi2Node = xmlObject.CreateNode(XmlNodeType.Element, "stavka", null);
+                    XmlAttribute katartAttr = xmlObject.CreateAttribute("kategorijaartikla");
+                    katartAttr.Value = sta.Kategorija.ToString();
+                    XmlAttribute nazartAttr = xmlObject.CreateAttribute("nazivartikla");
+                    nazartAttr.Value = sta.Naziv.ToString();
+                    XmlAttribute opartAttr = xmlObject.CreateAttribute("opisartikla");
+                    opartAttr.Value = sta.Opis.ToString();
+                    XmlAttribute jedmjerartAttr = xmlObject.CreateAttribute("jedinicamjereartikla");
+                    jedmjerartAttr.Value = sta.JedinicaMjere.ToString();
+                    XmlAttribute cijenaartAttr = xmlObject.CreateAttribute("cijenaartikla");
+                    cijenaartAttr.Value = sta.Cijena.ToString();
+                    XmlAttribute kolAttr = xmlObject.CreateAttribute("kolicina");
+                    kolAttr.Value = sta.Kolicina.ToString();
+                    XmlAttribute ukupnacAttr = xmlObject.CreateAttribute("ukupnacijena");
+                    ukupnacAttr.Value = sta.Ukupnacijena.ToString();
+                    stavkeNode.AppendChild(novi2Node);
 
-                zaposleniciNode.AppendChild(noviNode);
+                }
+
+
+                racuniNode.AppendChild(noviNode);
                     }
             xmlObject.Save(lokacijaxmla);
         }
@@ -516,6 +540,7 @@ namespace VUV_PCSHOP
             SpremanjeUXMLzaposlenike(ref zaposlenici);
             SpremanjeUXMLartikle(ref sviartikli);
             SpremanjeUXMLkategorije(ref kategorija);
+            SpremanjeUXMLracuni(ref racuni);
         }
     }
 }

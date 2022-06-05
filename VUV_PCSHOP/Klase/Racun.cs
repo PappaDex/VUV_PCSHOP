@@ -11,14 +11,34 @@ namespace VUV_PCSHOP
         private double _ukupaniznos;
         private DateTime _datum;
         private List<Stavka> stavke;
-    
+
         public Racun()
         {
             stavke = new List<Stavka>();
         }
-    public void DodavanjeStavke(Stavka stavka) 
+        public void DodavanjeStavke(Stavka stavka)
         {
             stavke.Add(stavka);
+        }
+        public string Sifraracuna
+        {
+            get { return _sifraracuna; }
+        }
+        public string Sifrazaposlenika
+        {
+            get { return _sifraracuna; }
+        }
+        public double Ukupaniznos
+        {
+            get { return _ukupaniznos; }
+        }
+        public DateTime Datum
+        {
+            get { return _datum; }
+        }
+        public List<Stavka> Stavke
+        {
+            get { return stavke; }
         }
     }
 }
