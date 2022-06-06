@@ -6,16 +6,28 @@ namespace VUV_PCSHOP
 {
     class Stavka:Artikl
     {
-        private Artikl _artikl;
+        
         private int _kolicina;
         private double _ukupnacijena;
-
         public Stavka(Artikl artikl,int kolicina)
         {
-            _artikl = artikl;
             _kolicina = kolicina;
-            _ukupnacijena = (double)artikl.Cijena * kolicina;
+            Cijena = artikl.Cijena;
+            Naziv = artikl.Naziv;
+            Opis = artikl.Opis;
+            JedinicaMjere = artikl.JedinicaMjere;
+            Kategorija = artikl.Kategorija;
+            _ukupnacijena = Cijena * _kolicina;
         }
+        //public Stavka(int kolicina)
+        //{
+
+        //    _kolicina = kolicina;
+        //    _ukupnacijena = (double)artikl.Cijena * kolicina;
+        //}
+        //public Artikl Artiklstavka {
+        //    set { _artiklstavka = value; }
+        //}
         public int Kolicina
         {
             get { return _kolicina; }

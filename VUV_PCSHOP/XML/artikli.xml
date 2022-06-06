@@ -2,5 +2,7 @@
 <vuv_pcshop>
   <artikli>
     <artikl kategorija="LAP" naziv="Laptop COOL" opis="Odlican Uredski laptop" jedinicamjere="kol" cijena="3699" />
+    <artikl kategorija="KOM" naziv="HyperX Ram 4GB" opis="DDR4 2333hz ram" jedinicamjere="GB" cijena="399" />
+    <artikl kategorija="KOM" naziv="Ram" opis="ram" jedinicamjere="gb" cijena="399" />
   </artikli>
 </vuv_pcshop>

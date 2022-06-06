@@ -34,22 +34,27 @@ namespace VUV_PCSHOP
         public string Kategorija
         {
             get { return _kategorija; }
+            set { _kategorija = value; }
         }
         public string Naziv
         {
             get { return _naziv; }
+            set { _naziv = value; }
         }
         public string Opis
         {
             get { return _opis; }
+            set { _opis = value; }
         }
         public string JedinicaMjere
         {
             get { return _jedinicamjere; }
+            set { _jedinicamjere = value; }
         }
         public double Cijena
         {
             get { return _cijena; }
+            set { _cijena = value; }
         }
         public void DodavanjeKategorije(string kljuckat) 
         {

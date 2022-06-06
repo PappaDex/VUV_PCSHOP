@@ -1,7 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
-	<racuni>
-		
-	</racuni>
-	
+  <racuni>
+    <racun sifrazaposlenika="1" sifraracuna="1" ukupaniznos="11097" datum="6/6/2022 3:31:54 PM">
+      <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="3" ukupnacijena="11097" />
+    </racun>
+  </racuni>
 </vuv_pcshop>
