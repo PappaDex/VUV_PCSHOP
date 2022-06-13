@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
   <racuni>
-    <racun sifrazaposlenika="1" sifraracuna="1" ukupaniznos="11097" datum="6/6/2022 3:31:54 PM">
+    <racun sifrazaposlenika="1" sifraracuna="1" ukupaniznos="31097" datum="6/12/2022 9:56:30 PM">
       <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="3" ukupnacijena="11097" />
+      <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="4" ukupnacijena="20000" />
     </racun>
   </racuni>
 </vuv_pcshop>

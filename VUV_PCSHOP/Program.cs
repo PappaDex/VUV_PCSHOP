@@ -57,6 +57,18 @@ namespace VUV_PCSHOP
                                     r1.Sifrazaposlenika = PrijaveljniZaposlenik.prijavljeni.Sifrazaposlenika;
                                     r1.Datum = DateTime.Now;
                                     racuni.Add(r1);
+                                    foreach (Racun rac in racuni)
+                                    {
+                                        
+                                        for (int j = 0; j < rac.Stavke.Count; j++)
+                                        {
+                                            Console.WriteLine(rac.Stavke[j].Naziv);
+                                            Console.WriteLine(rac.Stavke[j].Kolicina);
+                                        }
+
+
+                                    }
+                                    r1 = null;
                                 }
                                 else
                                 {
@@ -90,60 +102,65 @@ namespace VUV_PCSHOP
                 List<Stavka> stavke = new List<Stavka>();
                 List<string> kljuckat = new List<string>();
                 Racun r1 = new Racun();
-                int i = 1;
-                Console.WriteLine("Odaberite Kategoriju:");
-                foreach (KeyValuePair<string, string> kategorija in kategorije)
+              
+                do
                 {
-
-                    Console.WriteLine(i + "." + kategorija.Value);
-                    kljuckat.Add(kategorija.Key);
-                 
-                    i++;
-                }
-
-                string izbor = Console.ReadLine();
-                int izb;
-                if (int.TryParse(izbor, out izb) == true)
-                {
-                    do
+                    int i = 1;
+                    Console.Clear();
+                    Console.WriteLine("Odaberite Kategoriju:");
+                    foreach (KeyValuePair<string, string> kategorija in kategorije)
                     {
-                        izb = Convert.ToInt32(izbor);
-                        int j = 1;
-                        Console.WriteLine("Odaberi Artikl:");
-                        foreach (Artikl art in artikli)
-                        {
-                            if (art.Kategorija == kljuckat[izb - 1])
-                            {
-                                Console.WriteLine(j + "." + art.Naziv +
-                                    "\nOpis:" + art.Opis);
-                                artikliukat.Add(art);
-                                Console.WriteLine("kat:"+kljuckat[izb-1]);
-                                j++;
-                            
-                            }
 
-                        }
-                         izbor = Console.ReadLine();
-                        if (int.TryParse(izbor, out  izb) == true)
+                        Console.WriteLine(i + "." + kategorija.Value);
+                        kljuckat.Add(kategorija.Key);
+
+                        i++;
+                    }
+
+                    string izbor = Console.ReadLine();
+                    int izb;
+                    if (int.TryParse(izbor, out izb) == true)
+                    {
+                        do
                         {
                             izb = Convert.ToInt32(izbor);
-                            
-                            Console.Write("Kolicina:");
-                            int kol = Convert.ToInt32(Console.ReadLine());
+                            int j = 1;
+                            Console.WriteLine("Odaberi Artikl:");
+                            foreach (Artikl art in artikli)
+                            {
+                                if (art.Kategorija == kljuckat[izb - 1])
+                                {
+                                    Console.WriteLine(j + "." + art.Naziv +
+                                        "\nOpis:" + art.Opis);
+                                    artikliukat.Add(art);
+                                    Console.WriteLine("kat:" + kljuckat[izb - 1]);
+                                    j++;
 
-                            Stavka s1 = new Stavka(artikliukat[izb-1],kol);
-                          
-                              
-                            Console.WriteLine("test:");
-                            Console.WriteLine(s1.Kategorija);
-                            r1.DodavanjeStavke(s1);
-                        }    
+                                }
+
+                            }
+                            izbor = Console.ReadLine();
+                            if (int.TryParse(izbor, out int izb2) == true)
+                            {
+                                izb2 = Convert.ToInt32(izbor);
+
+                                Console.Write("Kolicina:");
+                                int kol = Convert.ToInt32(Console.ReadLine());
+
+                                Stavka s1 = new Stavka(artikliukat[izb2 - 1], kol);
+
+
+                                Console.WriteLine("test:");
+                                Console.WriteLine(s1.Kategorija);
+                                r1.DodavanjeStavke(s1);
+                            }
                             Console.WriteLine("ESC-izlaz");
-                        artikliukat.Clear();
-                    } while (Console.ReadKey().Key != ConsoleKey.Escape);
-                  
+                            artikliukat.Clear();
+                        } while (Console.ReadKey().Key != ConsoleKey.Escape);
 
-                }
+
+                    }
+                } while (Console.ReadKey().Key != ConsoleKey.Escape);
                 return (r1);
 
 
@@ -169,7 +186,6 @@ namespace VUV_PCSHOP
                     Console.WriteLine("Odaberite Kategoriju:");
                     foreach(KeyValuePair<string,string> kategorija in kategorije)
                     {
-
                         Console.WriteLine(i+"."+kategorija.Value);
                         kljuckat.Add(kategorija.Key);
                         i++;
@@ -430,51 +446,51 @@ namespace VUV_PCSHOP
                   Convert.ToInt32(art.Attributes["cijena"].Value)
                     ));;
             }
-        }  
-        //static void SaveListRacuni(ref List<Racun>sviracuni)
-        //{
-        //    List<Stavka> s1 = new List<Stavka>();
-        //    string lok = FileLocation.lokacija + "\\XML\\racuni.xml";
-        //    string xml = "";
-        //    StreamReader sr = new StreamReader(lok);
-        //    using(sr)
-        //    {
-        //        xml=sr.ReadToEnd();
-        //    }
-        //    sr.Close();
-        //    XmlDocument xmlObject = new XmlDocument();
-        //    xmlObject.LoadXml(xml);
-        //    XmlNodeList racuni = xmlObject.SelectNodes("//vuv_pcshop/racuni/racun");
-        //    XmlNodeList stavke = xmlObject.SelectNodes("//vuv_pcshop/racuni/racun/stavka");
-        //foreach(XmlNode stavka in stavke)
-        //    {
-        //        s1.Add(new Stavka(
-                    
-        //    new Artikl(stavka.Attributes["kategorijaartikla"].Value,
-        //        stavka.Attributes["nazivartikla"].Value,
-        //        stavka.Attributes["opisartikla"].Value,
-        //        stavka.Attributes["jedinicamjereartikla"].Value,
-        //       Convert.ToDouble(stavka.Attributes["cijenaartikla"].Value)
-        //       )
+        }
+        static void SaveListRacuni(ref List<Racun> sviracuni)
+        {
+            List<Stavka> s1 = new List<Stavka>();
+            string lok = FileLocation.lokacija + "\\XML\\racuni.xml";
+            string xml = "";
+            StreamReader sr = new StreamReader(lok);
+            using (sr)
+            {
+                xml = sr.ReadToEnd();
+            }
+            sr.Close();
+            XmlDocument xmlObject = new XmlDocument();
+            xmlObject.LoadXml(xml);
+            XmlNodeList racuni = xmlObject.SelectNodes("//vuv_pcshop/racuni/racun");
+            XmlNodeList stavke = xmlObject.SelectNodes("//vuv_pcshop/racuni/racun/stavka");
+
+            foreach (XmlNode rac in racuni)
+            {
 
 
 
-        //        )); ; ; ;
-        //    }
-        //        foreach (XmlNode rac in racuni)
-        //    {
+                foreach (XmlNode stavka in stavke)
+                {
+                    s1.Add(new Stavka(
 
-        //        sviracuni.Add(new Racun(
-        //            new(Stavka(
+                new Artikl(stavka.Attributes["kategorijaartikla"].Value,
+                    stavka.Attributes["nazivartikla"].Value,
+                    stavka.Attributes["opisartikla"].Value,
+                    stavka.Attributes["jedinicamjereartikla"].Value,
+                   Convert.ToDouble(stavka.Attributes["cijenaartikla"].Value)
+                   ),
 
-        //            rac.Attributes["sifrazaposlenik"].Value,
-        //            rac.Attributes["sifraracun"].Value,
-        //           Convert.ToDouble(rac.Attributes["ukupniznos"].Value),
-        //           Convert.ToDateTime(rac.Attributes["datum"].Value)
+                Convert.ToInt32(stavka.Attributes["kolicina"].Value)));
+                }
+                sviracuni.Add(new Racun(
+                                rac.Attributes["sifrazaposlenika"].Value,
+                    rac.Attributes["sifraracuna"].Value,
+                    Convert.ToDouble(rac.Attributes["ukupaniznos"].Value),
+                    Convert.ToDateTime(rac.Attributes["datum"].Value),
+                    s1
+                    )) ;
 
-        //            )) ; ;
-        //    }
-        //} 
+            }
+        }
         static void SaveDictKategorije(ref Dictionary<string,string>kategorija)
         {
             string lok = FileLocation.lokacija + "\\XML\\kategorije.xml";
@@ -666,18 +682,17 @@ namespace VUV_PCSHOP
                     XmlAttribute ukupnacAttr = xmlObject.CreateAttribute("ukupnacijena");
                     ukupnacAttr.Value = sta.Ukupnacijena.ToString();
                     novi2Node.Attributes.Append(ukupnacAttr);
-                    if (i == 0)
-                    {
+                   
                         racuniNode.AppendChild(noviNode);
-                        i++;
-                    }
+                 
                     XmlNode stavkeNode = xmlObject.SelectSingleNode("//vuv_pcshop/racuni/racun");
                     stavkeNode.AppendChild(novi2Node);
-
+                    
                 }
+                
 
                 racuniNode.AppendChild(noviNode);
-
+                s1 = null;
             }
             xmlObject.Save(lokacijaxmla);
         }
