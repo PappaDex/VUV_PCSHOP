@@ -6,7 +6,7 @@ namespace VUV_PCSHOP
 {
     class Program
     {
-        static class PrijaveljniZaposlenik
+      public static class PrijaveljniZaposlenik
         {
           public  static Zaposlenik prijavljeni;
         }
@@ -20,15 +20,7 @@ namespace VUV_PCSHOP
             lokacija = Path.GetDirectoryName(lokacija);
             FileLocation.lokacija = lokacija;
         }
-        //static void PopisKategorija(ref Dictionary<string,string>kategorije)
-        //{
-        //    kategorije.Add("LAP","Laptopi,Racunala");
-        //    kategorije.Add("KOM","Komponente");
-        //    kategorije.Add("KON","Konzole");
-        //    kategorije.Add("MON","Monitori,Periferija");
-        //    kategorije.Add("SOF", "Software,Kablovi");
 
-        //}
         static void KreiranjeRacuna(ref List<Racun> racuni,ref Dictionary<string,string>kategorije,ref List<Artikl>artikli) 
         {
             try
@@ -73,6 +65,7 @@ namespace VUV_PCSHOP
                                 else
                                 {
                                     Console.WriteLine("prazan racun!");
+                                    Console.ReadKey();
                                 }
                                     break;
 
@@ -381,7 +374,7 @@ namespace VUV_PCSHOP
                         Console.Clear();
 
 
-
+                        
                         Izbornik(ref sviartikli,ref kategorije,ref racuni);
                         break;
                     
@@ -682,9 +675,12 @@ namespace VUV_PCSHOP
                     XmlAttribute ukupnacAttr = xmlObject.CreateAttribute("ukupnacijena");
                     ukupnacAttr.Value = sta.Ukupnacijena.ToString();
                     novi2Node.Attributes.Append(ukupnacAttr);
-                   
+                    if (i == 0)
+                    {
                         racuniNode.AppendChild(noviNode);
-                 
+                        i++;
+                        Console.WriteLine(i);
+                    }
                     XmlNode stavkeNode = xmlObject.SelectSingleNode("//vuv_pcshop/racuni/racun");
                     stavkeNode.AppendChild(novi2Node);
                     
@@ -727,10 +723,9 @@ namespace VUV_PCSHOP
         {
             try
             {
-             
-             
-                do
-                {
+
+
+                while (true) { 
                     Console.WriteLine("" +
                     "1.Dodavanje/Azuriranje/Brisanje Artikla" +
                     "\n2.Pregled artikala" + 
@@ -759,9 +754,9 @@ namespace VUV_PCSHOP
                     }
 
                     Console.Clear();
-                
-                } while (Console.ReadKey().Key != ConsoleKey.Escape);
-                
+
+                }
+
             }
 
 
@@ -773,6 +768,8 @@ namespace VUV_PCSHOP
         }
         static void Main(string[] args)
         {
+            MainMenu menu = new MainMenu();
+            
             LokacijaDatoteke();
             List<Zaposlenik> zaposlenici = new List<Zaposlenik>();
             List<Artikl> sviartikli = new List<Artikl>();
@@ -781,7 +778,8 @@ namespace VUV_PCSHOP
             //PopisKategorija(ref kategorija);
             SaveDictKategorije(ref kategorija);
             SaveListZaposlenici(ref zaposlenici);
-            SaveListArtikli(ref sviartikli);    
+            SaveListArtikli(ref sviartikli);
+            menu.Start(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
             Startup(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
             SpremanjeUXMLzaposlenike(ref zaposlenici);
             SpremanjeUXMLartikle(ref sviartikli);
