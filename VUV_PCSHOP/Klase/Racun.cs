@@ -11,7 +11,7 @@ namespace VUV_PCSHOP
         private double _ukupniznos;
         private DateTime _datum;
         private List<Stavka> stavke;
-
+        Random rand = new Random();
         public Racun(string sracun,string szaposlenik,double uiznos,DateTime datum,List<Stavka>stavka)
         {
             _sifraracuna = sracun;
@@ -19,11 +19,16 @@ namespace VUV_PCSHOP
             _ukupniznos = uiznos;
             _datum = datum;
             stavke = stavka;
+            if (_sifraracuna == string.Empty)
+                _sifraracuna = Convert.ToString(rand.Next(1, 9000));
         }
         public Racun()
         {
+            Random rand = new Random();
             
             stavke = new List<Stavka>();
+            if (_sifraracuna == string.Empty)
+                _sifraracuna = Convert.ToString(rand.Next(1, 9000));
         }
         public void DodavanjeStavke(Stavka stavka)
         {
@@ -36,8 +41,8 @@ namespace VUV_PCSHOP
         }
         public string Sifrazaposlenika
         {
-            get { return _sifraracuna; }
-            set { _sifraracuna=value; }
+            get { return _sifrazaposlenika; }
+            set { _sifrazaposlenika = value; }
         }
         public double Ukupaniznos
         {

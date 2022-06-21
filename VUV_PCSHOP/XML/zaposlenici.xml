@@ -4,6 +4,7 @@
     <zaposlenici>
       <zaposlenik oib="123" ime="Đurica" prezime="Dakić" sifrazaposlenika="1" />
       <zaposlenik oib="421" ime="Gita" prezime="Pejovic" sifrazaposlenika="2" />
+      <zaposlenik oib="1534" ime="Niksa" prezime="Balaz" sifrazaposlenika="3" />
     </zaposlenici>
   </osoba>
 </vuv_pcshop>

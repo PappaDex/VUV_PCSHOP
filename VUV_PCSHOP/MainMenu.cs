@@ -36,6 +36,7 @@ namespace VUV_PCSHOP
         private void Izbornik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
+            Racun r1=new Racun();
             string[] options = { "Dodavanje/Azuriranje/Brisanje Artikla", "Pregled artikala", "Kreiraj Racun", "Pregled racuna po zaposleniku", "izlaz" };
             Meni mainMeni = new Meni(options, prompt);
             int selectedIndex = mainMeni.Run();
@@ -48,13 +49,13 @@ namespace VUV_PCSHOP
                     PregledArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
                     break;
                 case 2:
-                    KreirajRacun(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    KreirajRacun(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni,ref r1);
                     break;
                 case 3:
                     PregledRacuna(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
                     break;
                 case 4:
-                 
+                    Izlaz();
                     break;
 
                
@@ -293,14 +294,15 @@ namespace VUV_PCSHOP
             }
 
         }
-        private void KreirajRacun(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        private void KreirajRacun(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni,ref Racun r1)
         {
             try
             {
 
-                Racun r1 = new Racun();
-                do
-                {
+                
+                
+
+                
                     string prompt = "VUV PC shop";
                     string[] options = { "Dodavanje stavki","Zavrsi Racun","Izlaz" };
                     Meni mainMeni = new Meni(options, prompt);
@@ -313,31 +315,42 @@ namespace VUV_PCSHOP
                         switch (selectedIndex)
                         {
                             case 0:
-                                r1 = DodavanjeStavki(ref kategorije, ref sviartikli, ref racuni,ref zaposlenici);
+                                r1 = DodavanjeStavki(ref kategorije, ref sviartikli, ref racuni,ref zaposlenici,ref r1);
+                        KreirajRacun(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni,ref r1);
                                 break;
                             case 1:
                                 if (r1 != null)
                                 {
                                     r1.Sifrazaposlenika = PrijaveljniZaposlenik.prijavljeni.Sifrazaposlenika;
                                     r1.Datum = DateTime.Now;
+                                    
                                     racuni.Add(r1);
+                            for (int i = 0; i < r1.Stavke.Count; i++)
+                            {
+                                Console.WriteLine("Stavka " + i + "." + r1.Stavke[i].Naziv);
+
+                            }
+                            Console.ReadKey();
                                     foreach (Racun rac in racuni)
                                     {
 
                                         for (int j = 0; j < rac.Stavke.Count; j++)
                                         {
-                                            Console.WriteLine(rac.Stavke[j].Naziv);
-                                            Console.WriteLine(rac.Stavke[j].Kolicina);
+                                            Console.WriteLine("Naziv:"+rac.Stavke[j].Naziv);
+                                            Console.WriteLine("Kolicina:"+rac.Stavke[j].Kolicina);
+                                       
                                         }
 
 
                                     }
+                            Console.ReadKey();
                                     r1 = null;
                                 }
                                 else
                                 {
                                     Console.WriteLine("prazan racun!");
                                 }
+                        Izbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
                                 break;
                         case 2:
                             Izbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
@@ -346,8 +359,8 @@ namespace VUV_PCSHOP
                         }
 
 
-                    
-                } while (true);
+                
+
 
             }
             catch (Exception)
@@ -356,13 +369,13 @@ namespace VUV_PCSHOP
                 throw;
             }
         }
-        private static Racun DodavanjeStavki(ref Dictionary<string, string> kategorije, ref List<Artikl> sviartikli, ref List<Racun> racuni, ref List<Zaposlenik> zaposlenici)
+        private static Racun DodavanjeStavki(ref Dictionary<string, string> kategorije, ref List<Artikl> sviartikli, ref List<Racun> racuni, ref List<Zaposlenik> zaposlenici,ref Racun r1)
         {
 
             List<Artikl> artikliukat = new List<Artikl>();
             List<Stavka> stavke = new List<Stavka>();
             List<string> kljuckat = new List<string>();
-            Racun r1 = new Racun();
+          
 
 
             string prompt = ("Odaberite kategoriju:");
@@ -374,16 +387,16 @@ namespace VUV_PCSHOP
                 options[x] = kljuc.Value;
                 x++;
             }
-            options[kategorije.Count] = "Izlaz";
+            options[kategorije.Count] = "TESTIS";
                 Meni mainMeni = new Meni(options, prompt);
                 int selectedIndex = mainMeni.Run();
 
 
-                if(selectedIndex==x&&r1!=null)
+                if(selectedIndex==kategorije.Count)
             {
                 return r1;
             }
-
+            else { 
                    
                     string prompt1 = ("Odaberite artikl:");
                  
@@ -425,15 +438,15 @@ namespace VUV_PCSHOP
                         r1.DodavanjeStavke(s1);
                     Console.ReadKey();
                     artikliukat.Clear();
-                            DodavanjeStavki(ref kategorije, ref sviartikli, ref racuni, ref zaposlenici);
+                            DodavanjeStavki(ref kategorije, ref sviartikli, ref racuni, ref zaposlenici,ref r1);
 
             
                         
  
                     return (r1);
 
-
-                } 
+            }
+        } 
            
 
 
@@ -475,8 +488,10 @@ namespace VUV_PCSHOP
                     }
                 }
                     Console.ReadKey();
+                    PregledRacuna(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    
             }
-                PregledRacuna(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                
             }
             catch (Exception)
             {
@@ -489,7 +504,7 @@ namespace VUV_PCSHOP
         {
             Console.WriteLine("Pritisnite bilo koju tipku za izlaz...");
             Console.ReadKey(true);
-            Environment.Exit(0);
+        
         }
     }
 }

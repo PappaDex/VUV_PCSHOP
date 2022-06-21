@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
   <racuni>
-    <racun sifrazaposlenika="1" sifraracuna="1" ukupaniznos="31097" datum="6/12/2022 9:56:30 PM">
-      <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="3" ukupnacijena="11097" />
-      <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="4" ukupnacijena="20000" />
+    <racun sifrazaposlenika="1" sifraracuna="4601" ukupaniznos="11197" datum="6/20/2022 8:00:25 PM">
+      <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="2" ukupnacijena="10000" />
+      <stavka kategorijaartikla="KOM" nazivartikla="Ram" opisartikla="ram" jedinicamjereartikla="gb" cijenaartikla="399" kolicina="3" ukupnacijena="1197" />
+    </racun>
+    <racun sifrazaposlenika="1" sifraracuna="825" ukupaniznos="15798" datum="6/20/2022 8:05:24 PM">
+      <stavka kategorijaartikla="KOM" nazivartikla="HyperX Ram 4GB" opisartikla="DDR4 2333hz ram" jedinicamjereartikla="GB" cijenaartikla="399" kolicina="2" ukupnacijena="798" />
+      <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="3" ukupnacijena="15000" />
+    </racun>
+    <racun sifrazaposlenika="1" sifraracuna="3918" ukupaniznos="15798" datum="6/20/2022 8:05:24 PM">
+      <stavka kategorijaartikla="KOM" nazivartikla="HyperX Ram 4GB" opisartikla="DDR4 2333hz ram" jedinicamjereartikla="GB" cijenaartikla="399" kolicina="2" ukupnacijena="798" />
+      <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="3" ukupnacijena="15000" />
     </racun>
   </racuni>
 </vuv_pcshop>

@@ -6,5 +6,6 @@ namespace VUV_PCSHOP
 {
     abstract class Osoba
     {
+
     }
 }

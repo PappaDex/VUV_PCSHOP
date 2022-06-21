@@ -68,7 +68,7 @@ namespace VUV_PCSHOP
                                     Console.ReadKey();
                                 }
                                     break;
-
+                          
                         }
                      
                        
@@ -429,8 +429,21 @@ namespace VUV_PCSHOP
             XmlDocument xmlObject = new XmlDocument();
             xmlObject.LoadXml(xml);
             XmlNodeList artikl = xmlObject.SelectNodes("//vuv_pcshop/artikli/artikl");
-        foreach(XmlNode art in artikl)
+            foreach (XmlNode art in artikl)
             {
+
+                if (art.Attributes["dostupnost"]!=null && art.Attributes["dostupnost"].Value != null)
+                {
+                    sviartikli.Add(new Artikl(
+                    art.Attributes["kategorija"].Value,
+                    art.Attributes["naziv"].Value,
+                    art.Attributes["opis"].Value,
+                    art.Attributes["jedinicamjere"].Value,
+                  Convert.ToInt32(art.Attributes["cijena"].Value),
+                  art.Attributes["dostupnost"].Value
+                    )); ; ;
+                }
+                else { 
                 sviartikli.Add(new Artikl(
                     art.Attributes["kategorija"].Value,
                     art.Attributes["naziv"].Value,
@@ -438,11 +451,13 @@ namespace VUV_PCSHOP
                     art.Attributes["jedinicamjere"].Value,
                   Convert.ToInt32(art.Attributes["cijena"].Value)
                     ));;
+                }
             }
         }
         static void SaveListRacuni(ref List<Racun> sviracuni)
         {
             List<Stavka> s1 = new List<Stavka>();
+            List<Racun> r1 = new List<Racun>();
             string lok = FileLocation.lokacija + "\\XML\\racuni.xml";
             string xml = "";
             StreamReader sr = new StreamReader(lok);
@@ -461,7 +476,7 @@ namespace VUV_PCSHOP
 
 
 
-                foreach (XmlNode stavka in stavke)
+                for(XmlNode stavka=rac.FirstChild;stavka!=null;stavka=stavka.NextSibling)
                 {
                     s1.Add(new Stavka(
 
@@ -474,15 +489,16 @@ namespace VUV_PCSHOP
 
                 Convert.ToInt32(stavka.Attributes["kolicina"].Value)));
                 }
-                sviracuni.Add(new Racun(
+                r1.Add(new Racun(
+                       rac.Attributes["sifraracuna"].Value,
                                 rac.Attributes["sifrazaposlenika"].Value,
-                    rac.Attributes["sifraracuna"].Value,
                     Convert.ToDouble(rac.Attributes["ukupaniznos"].Value),
                     Convert.ToDateTime(rac.Attributes["datum"].Value),
                     s1
                     )) ;
-
+                s1=new List<Stavka>();
             }
+            sviracuni = r1;
         }
         static void SaveDictKategorije(ref Dictionary<string,string>kategorija)
         {
@@ -610,6 +626,9 @@ namespace VUV_PCSHOP
                 XmlAttribute cijAttr = xmlObject.CreateAttribute("cijena");
                 cijAttr.Value = artikl.Cijena.ToString();
                 noviNode.Attributes.Append(cijAttr);
+                XmlAttribute dostupnostAttr = xmlObject.CreateAttribute("dostupnost");
+                dostupnostAttr.Value = artikl.Dostupnost.ToString();
+                noviNode.Attributes.Append(dostupnostAttr);
 
                 artikliNode.AppendChild(noviNode);
                     }
@@ -626,15 +645,17 @@ namespace VUV_PCSHOP
             sr.Close();
             XmlDocument xmlObject = new XmlDocument();
             xmlObject.LoadXml(xml);
+            List<Stavka> s1 = new List<Stavka>();
             string lokacijaxmla = FileLocation.lokacija+"\\XML\\racuni.xml";
             XmlNode racuniNode = xmlObject.SelectSingleNode("//vuv_pcshop/racuni");
-            int i = 0;
+
             XmlNode artiklNode = xmlObject.SelectSingleNode("//vuv_pcshop/racuni/racun/stavka");
             racuniNode.RemoveAll();
             foreach(Racun rac in racuni)
             {
-                List<Stavka> s1 = new List<Stavka>();
-                s1 = rac.Stavke;
+               
+              
+
                 XmlNode noviNode = xmlObject.CreateNode(XmlNodeType.Element, "racun", null);
                 XmlAttribute sifrazaposlenikaAttr = xmlObject.CreateAttribute("sifrazaposlenika");
                 sifrazaposlenikaAttr.Value = rac.Sifrazaposlenika.ToString();
@@ -648,12 +669,28 @@ namespace VUV_PCSHOP
                 XmlAttribute datumAttr = xmlObject.CreateAttribute("datum");
                 datumAttr.Value = rac.Datum.ToString();
                 noviNode.Attributes.Append(datumAttr);
-              
-                
+           
+
+                racuniNode.AppendChild(noviNode);
+
+
+           
+            }
+            XmlNode stavkeNode = racuniNode.FirstChild;
+
+
+
+            Console.WriteLine("broj racuna:"+racuni.Count);
+            foreach (Racun rac in racuni)
+            {
+                s1.Clear();
+                s1 = rac.Stavke;
+                Console.WriteLine("Broj stavki:"+ rac.Stavke.Count);  
                 foreach (Stavka sta in s1)
                 {
 
                     XmlNode novi2Node = xmlObject.CreateNode(XmlNodeType.Element, "stavka", null);
+
                     XmlAttribute katartAttr = xmlObject.CreateAttribute("kategorijaartikla");
                     katartAttr.Value = sta.Kategorija.ToString();
                     novi2Node.Attributes.Append(katartAttr);
@@ -674,23 +711,19 @@ namespace VUV_PCSHOP
                     novi2Node.Attributes.Append(kolAttr);
                     XmlAttribute ukupnacAttr = xmlObject.CreateAttribute("ukupnacijena");
                     ukupnacAttr.Value = sta.Ukupnacijena.ToString();
-                    novi2Node.Attributes.Append(ukupnacAttr);
-                    if (i == 0)
-                    {
-                        racuniNode.AppendChild(noviNode);
-                        i++;
-                        Console.WriteLine(i);
-                    }
-                    XmlNode stavkeNode = xmlObject.SelectSingleNode("//vuv_pcshop/racuni/racun");
-                    stavkeNode.AppendChild(novi2Node);
-                    
-                }
-                
+                    novi2Node.Attributes.Append(ukupnacAttr);          
 
-                racuniNode.AppendChild(noviNode);
-                s1 = null;
+
+
+                    stavkeNode.AppendChild(novi2Node);
+
+                }
+                stavkeNode = stavkeNode.NextSibling;
+
+
             }
             xmlObject.Save(lokacijaxmla);
+
         }
         static void SpremanjeUXMLkategorije(ref Dictionary<string,string> kategorije)
         {
@@ -779,8 +812,9 @@ namespace VUV_PCSHOP
             SaveDictKategorije(ref kategorija);
             SaveListZaposlenici(ref zaposlenici);
             SaveListArtikli(ref sviartikli);
+            SaveListRacuni(ref racuni);
             menu.Start(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
-            Startup(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
+            //Startup(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
             SpremanjeUXMLzaposlenike(ref zaposlenici);
             SpremanjeUXMLartikle(ref sviartikli);
             SpremanjeUXMLkategorije(ref kategorija);
