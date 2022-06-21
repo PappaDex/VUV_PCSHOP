@@ -260,6 +260,7 @@ namespace VUV_PCSHOP
         }
         private void PregledArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
+            List<Artikl> artikliukat = new List<Artikl>();
             List<string> kljuckat = new List<string>();
             string prompt3 = ("Odaberite kategoriju:");
             string[] options3 = new string[kategorije.Count + 1];
@@ -279,13 +280,51 @@ namespace VUV_PCSHOP
             }
             else
             {
-                foreach(Artikl art in sviartikli)
-                {
-                    if (art.Kategorija ==kljuckat[selectedIndex3])
-                    {
-                        Console.WriteLine("Naziv Artikla:"+art.Naziv);
-                        Console.WriteLine("Opis:"+art.Opis);
+                string prompt1 = ("Odaberite artikl:          Dostupnost:");
 
+                int x1 = 0;
+
+                foreach (Artikl art in sviartikli)
+                {
+                    if (art.Kategorija == kljuckat[selectedIndex3])
+                    {
+                        artikliukat.Add(art);
+                        x1++;
+
+                    }
+
+                }
+                string[] options1 = new string[x1+1];
+                int j = 0;
+                foreach (Artikl art in sviartikli)
+                {
+                    if (art.Kategorija == kljuckat[selectedIndex3])
+                    {
+                        options1[j] = art.Naziv+"   "+art.Dostupnost;
+                        j++;
+
+                    }
+
+                }
+                options1[j] = "Izlaz";
+                izbor2:
+                Meni mainMeni1 = new Meni(options1, prompt1);
+                int selectedIndex1 = mainMeni1.Run();
+                if (selectedIndex1 == j)
+                {
+                    PregledArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                }
+                else
+                {
+                    string prompt2 = "Odaberite Dostupnost:";
+                    string[] options2 = { "da", "ne", "nazad" };
+                    Meni mainMeni2= new Meni(options2, prompt2);
+                    int selectedIndex2 = mainMeni2.Run();
+                    if(selectedIndex2!=2)
+                    artikliukat[selectedIndex1].Dostupnost = options2[selectedIndex2];
+                    else
+                    {
+                        goto izbor2;
                     }
                 }
                 Console.ReadKey();
@@ -325,26 +364,27 @@ namespace VUV_PCSHOP
                                     r1.Datum = DateTime.Now;
                                     
                                     racuni.Add(r1);
-                            for (int i = 0; i < r1.Stavke.Count; i++)
-                            {
-                                Console.WriteLine("Stavka " + i + "." + r1.Stavke[i].Naziv);
+                            //for (int i = 0; i < r1.Stavke.Count; i++)
+                            //{
+                            //    Console.WriteLine("Stavka " + i + "." + r1.Stavke[i].Naziv);
 
-                            }
-                            Console.ReadKey();
-                                    foreach (Racun rac in racuni)
-                                    {
+                            //}
+                            //Console.ReadKey();
+                            //        foreach (Racun rac in racuni)
+                            //        {
 
-                                        for (int j = 0; j < rac.Stavke.Count; j++)
-                                        {
-                                            Console.WriteLine("Naziv:"+rac.Stavke[j].Naziv);
-                                            Console.WriteLine("Kolicina:"+rac.Stavke[j].Kolicina);
+                            //            for (int j = 0; j < rac.Stavke.Count; j++)
+                            //            {
+                            //                Console.WriteLine("Naziv:"+rac.Stavke[j].Naziv);
+                            //                Console.WriteLine("Kolicina:"+rac.Stavke[j].Kolicina);
                                        
-                                        }
+                            //            }
 
 
-                                    }
-                            Console.ReadKey();
+                            //        }
+                            //Console.ReadKey();
                                     r1 = null;
+
                                 }
                                 else
                                 {
@@ -387,7 +427,7 @@ namespace VUV_PCSHOP
                 options[x] = kljuc.Value;
                 x++;
             }
-            options[kategorije.Count] = "TESTIS";
+            options[kategorije.Count] = "Nazad";
                 Meni mainMeni = new Meni(options, prompt);
                 int selectedIndex = mainMeni.Run();
 
@@ -400,44 +440,65 @@ namespace VUV_PCSHOP
                    
                     string prompt1 = ("Odaberite artikl:");
                  
-                    int x1 = 0;
+ 
 
                     foreach (Artikl art in sviartikli)
                     {
                         if (art.Kategorija == kljuckat[selectedIndex])
                         {
+                        if (art.Dostupnost == "da")
                             artikliukat.Add(art);
-                            x1++;
+        
 
                         }
 
                     }
-                    string[] options1 = new string[x1];
-                    int j = 0;
+
+               
+                int j = 0;
                     foreach (Artikl art in sviartikli)
                     {
-                        if (art.Kategorija == kljuckat[selectedIndex])
-                        {
-                            options1[j] = art.Naziv;
+                    if (art.Kategorija == kljuckat[selectedIndex])
+                    {
+                        if (art.Dostupnost == "da")
+                        { 
+                      
                             j++;
-
                         }
+                    }
 
                     }
-                   
-                    Meni mainMeni1 = new Meni(options1, prompt1);
+                string[] options1 = new string[j+1];
+                int k = 0;
+                foreach (Artikl art in sviartikli)
+                    {
+                    if (art.Kategorija == kljuckat[selectedIndex])
+                    {
+                        if (art.Dostupnost == "da")
+                        {
+                            options1[k] = art.Naziv;
+                            k++;
+                        }
+                    }
+
+                    }
+              
+                options1[j] = "Izlaz2";
+                Meni mainMeni1 = new Meni(options1, prompt1);
                     int selectedIndex1 = mainMeni1.Run();
-                        Console.Write("Kolicina:");
+                if (selectedIndex1 != j) 
+                { 
+                    Console.Write("Kolicina:");
                         int kol = Convert.ToInt32(Console.ReadLine());
 
                         Stavka s1 = new Stavka(artikliukat[selectedIndex1], kol);
 
 
-                        Console.WriteLine("test:");
-                        Console.WriteLine(s1.Kategorija);
                         r1.DodavanjeStavke(s1);
                     Console.ReadKey();
-                    artikliukat.Clear();
+                }
+                artikliukat.Clear();
+
                             DodavanjeStavki(ref kategorije, ref sviartikli, ref racuni, ref zaposlenici,ref r1);
 
             
@@ -447,13 +508,6 @@ namespace VUV_PCSHOP
 
             }
         } 
-           
-
-
-
-
-    
-        
         private void PregledRacuna(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
              {
             try

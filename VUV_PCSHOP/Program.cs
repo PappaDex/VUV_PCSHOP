@@ -661,7 +661,8 @@ namespace VUV_PCSHOP
                 sifrazaposlenikaAttr.Value = rac.Sifrazaposlenika.ToString();
                 noviNode.Attributes.Append(sifrazaposlenikaAttr);
                 XmlAttribute sifraracunaAttr = xmlObject.CreateAttribute("sifraracuna");
-                sifraracunaAttr.Value = rac.Sifraracuna.ToString();
+                if(rac.Sifraracuna!=string.Empty)
+                sifraracunaAttr.Value = rac.Sifraracuna;
                 noviNode.Attributes.Append(sifraracunaAttr);
                 XmlAttribute ukupaniznosAttr = xmlObject.CreateAttribute("ukupaniznos");
                 ukupaniznosAttr.Value = rac.Ukupaniznos.ToString();
