@@ -1,19 +1,365 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
 namespace VUV_PCSHOP
 {
-    class MainMenu:Program
+    class MainMenu : Program
     {
-        public void Start(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        public void Start(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
         {
-           Console.Title= ("IT trgovina");
-            RunMainMenu(ref zaposlenici,ref sviartikli,ref kategorije,ref racuni);
+            Console.Title = ("IT trgovina");
+            LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
+        }
+        private void LoginMeni(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
+        {
+            string prompt1 = "Prijava:";
+            string[] options1 = { "Admin", "Zaposlenik" };
+            Meni prijavaMeni = new Meni(options1, prompt1);
+            int selectedIndex1 = prijavaMeni.Run();
+            if (selectedIndex1 == 0)
+            {
+                AdminLogin(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
+            }
+            else
+            {
+                RunMainMenu(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+            }
+        }
+        private void AdminLogin(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
+        {
+            Console.Write("Username:");
+            string username = Console.ReadLine();
+            Console.Write("\nPassword:");
+            string password = Console.ReadLine();
+            foreach (Admin admin in admins)
+            {
+                if (admin.Username == username && admin.Password == password)
+                {
+                    Console.WriteLine("Login uspjesan!");
+                    Console.ReadKey();
+                    AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                }
+
+            }
+            Console.WriteLine("Krivi unos!");
+            Console.ReadKey();
+            LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
+
+        }
+        private void AdminIzbornik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            string prompt = "VUV PC SHOP";
+            Racun r1 = new Racun();
+            string[] options = { "Dodavanje/Azuriranje/Brisanje Zaposlenika", "Statistika", "Stoniraj Racun", "Dodavanje/Brisanje Kategorije", "izlaz" };
+            Meni mainMeni = new Meni(options, prompt);
+            int selectedIndex = mainMeni.Run();
+            switch (selectedIndex)
+            {
+                case 0:
+                    DABZaposlenici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 1:
+                    Statistika(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 2:
+                    StonirajRacun(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 3:
+                    DBKategorije(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+
+
+
+            }
+        }
+        private void DABZaposlenici(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            string prompt = "VUV PC SHOP";
+            string[] options = { "Dodavanje", "Azuriranje", "Brisanje", "Nazad" };
+            Meni mainMeni = new Meni(options, prompt);
+            int selectedIndex = mainMeni.Run();
+            switch (selectedIndex)
+            {
+                case 0:
+                    DodavanjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 1:
+                    AzuriranjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 2:
+                    BrisanjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 3:
+                    AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+
+            }
+        }
+        private void DodavanjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+
+            Console.WriteLine("OIB:");
+            string oibz = Console.ReadLine();
+            Console.WriteLine("Ime:");
+            string imez = Console.ReadLine();
+            Console.WriteLine("Prezime:");
+            string prezimez = Console.ReadLine();
+            Console.WriteLine("Sifra Zaposlenika:");
+            string sifraz = Console.ReadLine();
+            Zaposlenik novizaposlenik = new Zaposlenik(oibz, imez, prezimez, sifraz);
+            zaposlenici.Add(novizaposlenik);
+            Console.WriteLine("Uspjesno dodavanje!");
+            Console.ReadKey();
+            DABZaposlenici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+        }
+        private void AzuriranjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            string prompt = "Odaberite Zaposlenika";
+            string[] options = new string[zaposlenici.Count + 1];
+            int i = 0;
+            foreach (Zaposlenik z in zaposlenici)
+            {
+                options[i] = z.IspisPunogImena();
+                i++;
+
+            }
+            options[i] = "Izlaz";
+
+            Meni mainMeni = new Meni(options, prompt);
+            int selectedIndex = mainMeni.Run();
+
+
+            if (selectedIndex == i)
+            {
+                DABZaposlenici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+            }
+            else
+            {
+
+                string prompt2 = "Odaberite sta zelite azurirati:";
+                string[] options2 = { "OIB", "Ime", "Prezime", "Izlaz" };
+                Meni mainMeni2 = new Meni(options2, prompt2);
+                int selectedIndex2 = mainMeni2.Run();
+                switch (selectedIndex2)
+                {
+                    case 0:
+
+                        Console.WriteLine("Unesite novi OIB:");
+                        string oib = Console.ReadLine();
+                        zaposlenici[selectedIndex].Oib = oib;
+
+                        break;
+                    case 1:
+                        Console.WriteLine("Unesite novo Ime:");
+                        string ime = Console.ReadLine();
+                        zaposlenici[selectedIndex].Ime = ime;
+                        break;
+                    case 2:
+                        Console.WriteLine("Unesite novo prezime:");
+                        string prezime = Console.ReadLine();
+                        zaposlenici[selectedIndex].Prezime = prezime;
+                        break;
+                    case 3:
+                        AzuriranjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                        break;
+
+                }
+
+            }
+
+        }
+        private void BrisanjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            string prompt = "Odaberite Zaposlenika koji zelite obrisat";
+            string[] options = { "" };
+
+            int i = 0;
+            options = new string[zaposlenici.Count + 1];
+            options[zaposlenici.Count] = "Izlaz";
+
+            foreach (Zaposlenik zaposlenik in zaposlenici)
+            {
+                options[i] = zaposlenik.IspisPunogImena();
+                i++;
+            }
+            options[i] = "Izlaz";
+            Meni mainMeni = new Meni(options, prompt);
+            int selectedIndex = mainMeni.Run();
+            if (selectedIndex == i)
+            {
+                DABZaposlenici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+            }
+            else
+            {
+                zaposlenici.RemoveAt(selectedIndex);
+            }
+        }
+        private void Statistika(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            string prompt = "VUV PC SHOP";
+            Racun r1 = new Racun();
+            string[] options = { "Najprodavaniji artikli", "Najbolji radnici", "Najprodavanija kategorija", "izlaz" };
+            Meni mainMeni = new Meni(options, prompt);
+            int selectedIndex = mainMeni.Run();
+            switch (selectedIndex)
+            {
+                case 0:
+                    NajprodavanijiArt(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 1:
+                    NajRadnici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 2:
+                    NajKat(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+                case 3:
+                    AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    break;
+            }
+        }
+        private void NajprodavanijiArt(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            Dictionary<string, int> topart = new Dictionary<string, int>();
+            List<Stavka> stavka = new List<Stavka>();
+            List<Stavka> topstavke = new List<Stavka>();
+         
+            foreach   (Racun rac in racuni)
+            {
+               for(int i=0; i<rac.Stavke.Count;i++)
+                {
+                    if (topart.ContainsKey(rac.Stavke[i].Naziv))
+                    {
+                        topart[rac.Stavke[i].Naziv] = topart[rac.Stavke[i].Naziv] + rac.Stavke[i].Kolicina;
+                    }    
+                        else
+                            {
+                                topart.Add(rac.Stavke[i].Naziv, rac.Stavke[i].Kolicina);
+                            }
+                   
+                }
+
+            }
+            var myList = topart.ToList();
+
+            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            var ordered = topart.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            Console.WriteLine("5 Najprodavanijih artikala je:");
+            int k = 0;
+             foreach(KeyValuePair<string,int> par in myList)
+            {
+                if(k<5)
+                {
+                    Console.WriteLine("Ime:{0}" + "  Kol:{1}",par.Key, par.Value) ;
+                    k++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+          
+            Console.ReadKey();
+            AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+
+        }
+        private void NajRadnici(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            Dictionary<string,double> zapnarac = new Dictionary<string,double>();
+            Dictionary<Zaposlenik, double> topzap = new Dictionary<Zaposlenik, double>();
+            List<Stavka> stavka = new List<Stavka>();
+            List<Stavka> topstavke = new List<Stavka>();
+
+            foreach (Racun rac in racuni)
+            {
+                
+                    if (zapnarac.ContainsKey(rac.Sifrazaposlenika))
+                    {
+                    zapnarac[rac.Sifrazaposlenika] = zapnarac[rac.Sifrazaposlenika] + rac.Ukupaniznos;
+                    }
+                    else
+                    {
+                    zapnarac.Add(rac.Sifrazaposlenika, rac.Ukupaniznos);
+                    }
+
+                
+
+            }
+            var myList = zapnarac.ToList();
+
+            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            var ordered = zapnarac.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            Console.WriteLine("Najbolji radinici:");
+            foreach (KeyValuePair<string, double> par in myList)
+            {
+                for(int a=0;a<zaposlenici.Count;a++)   
+                if (par.Key == zaposlenici[a].Sifrazaposlenika)
+                {
+                        Console.WriteLine("Ime:{0}    Prodano:{1}kn", zaposlenici[a].Ime +"  "+ zaposlenici[a].Prezime,par.Value); 
+
+
+                }
+                
+            }
+
+
+            Console.ReadKey();
+            AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+
+        }
+        private void NajKat(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            Dictionary<string, int> topkat = new Dictionary<string, int>();
+            List<Stavka> stavka = new List<Stavka>();
+            List<Stavka> topstavke = new List<Stavka>();
+
+            foreach (Racun rac in racuni)
+            {
+                for (int i = 0; i < rac.Stavke.Count; i++)
+                {
+                    if (topkat.ContainsKey(rac.Stavke[i].Kategorija))
+                    {
+                        topkat[rac.Stavke[i].Kategorija] = topkat[rac.Stavke[i].Kategorija] + 1;
+                    }
+                    else
+                    {
+                        topkat.Add(rac.Stavke[i].Kategorija, 1);
+                    }
+
+                }
+
+            }
+            var myList = topkat.ToList();
+
+            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            var ordered = topkat.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            Console.WriteLine("5 Najprodavanijih Kategorija je:");
+            foreach (KeyValuePair<string, string> svekat in kategorije)
+            {
+                foreach(KeyValuePair<string,int>prodanekat in topkat)
+                if (svekat.Key==prodanekat.Key)
+                {
+                    Console.WriteLine("Naziv Kategorije:{0}" + "  Kolicina prodanog iz kategorije:{1}", svekat.Value, prodanekat.Value);
+                 
+                }
+             
+            }
+
+            Console.ReadKey();
+            AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+        }
+        //dodat brisanje racuna
+        private void StonirajRacun(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            
+        }
+        //dodat dodavanje i brisanje kategorija
+        private void DBKategorije(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+
         }
         private void RunMainMenu(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
-           
             string prompt = "Odaberite Zaposlenika";
             string[] options = new string[zaposlenici.Count];
             int i = 0;
@@ -87,8 +433,7 @@ namespace VUV_PCSHOP
         }
         private void DodavanjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
-         while (true)
-            {
+
                 string prompt = "Odaberi kategoriju";
                 string[] options = {""};
 
@@ -134,15 +479,14 @@ namespace VUV_PCSHOP
                     Console.ReadKey();
                     Console.Clear();
                  }
-           }
+           
 
 
 
         }
         private void AzuriranjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
-            while (true)
-            {
+          
                 string prompt = "Odaberite Artikl koji zelite azurirati";
                 string[] options = { "" };
 
@@ -227,13 +571,12 @@ namespace VUV_PCSHOP
                         }
                     }
                 }
-            }
+            
         }
         private void BrisanjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
-            while (true)
-            {
-                string prompt = "Odaberite Artikl koji zelite azurirati";
+           
+                string prompt = "Odaberite Artikl koji zelite obrisat";
                 string[] options = { "" };
 
                 int i = 0;
@@ -256,7 +599,7 @@ namespace VUV_PCSHOP
                 {
                     sviartikli.RemoveAt(selectedIndex);
                 }
-            }
+           
         }
         private void PregledArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {

@@ -31,10 +31,12 @@ namespace VUV_PCSHOP
         public int Kolicina
         {
             get { return _kolicina; }
+            set { _kolicina = value; }
         }
         public double Ukupnacijena
         {
             get { return _ukupnacijena; }
+            set { _ukupnacijena = value; }
         }
     }
 }

@@ -415,6 +415,27 @@ namespace VUV_PCSHOP
                     zap.Attributes["sifrazaposlenika"].Value
                     ));
             }
+        }      
+        static void SaveListAdmini(ref List<Admin> admins)
+        {
+            string lok = FileLocation.lokacija + "\\XML\\admin.xml";
+            string xml = "";
+            StreamReader sr = new StreamReader(lok);
+            using(sr)
+            {
+                xml=sr.ReadToEnd();
+            }
+            sr.Close();
+            XmlDocument xmlObject = new XmlDocument();
+            xmlObject.LoadXml(xml);
+            XmlNodeList admini = xmlObject.SelectNodes("//vuv_pcshop/admins/admin");
+        foreach(XmlNode admin in admini)
+            {
+                admins.Add(new Admin(
+                    admin.Attributes["username"].Value,
+                    admin.Attributes["password"].Value
+                    ));
+            }
         }
          static void SaveListArtikli(ref List<Artikl>sviartikli)
         {
@@ -805,16 +826,18 @@ namespace VUV_PCSHOP
             MainMenu menu = new MainMenu();
             
             LokacijaDatoteke();
+            List<Admin> admins = new List<Admin>();
             List<Zaposlenik> zaposlenici = new List<Zaposlenik>();
             List<Artikl> sviartikli = new List<Artikl>();
             List<Racun> racuni = new List<Racun>();
             Dictionary<string, string> kategorija = new Dictionary<string, string>();
             //PopisKategorija(ref kategorija);
+            SaveListAdmini(ref admins);
             SaveDictKategorije(ref kategorija);
             SaveListZaposlenici(ref zaposlenici);
             SaveListArtikli(ref sviartikli);
             SaveListRacuni(ref racuni);
-            menu.Start(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
+            menu.Start(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni,ref admins);
             //Startup(ref zaposlenici,ref sviartikli,ref kategorija,ref racuni);
             SpremanjeUXMLzaposlenike(ref zaposlenici);
             SpremanjeUXMLartikle(ref sviartikli);

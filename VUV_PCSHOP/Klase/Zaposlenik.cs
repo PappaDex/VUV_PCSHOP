@@ -36,18 +36,21 @@ namespace VUV_PCSHOP
         public string Oib
         {
             get { return _oib; }
+            set { _oib = value; }
            
         }
 
         public string Ime
         {
             get { return _ime; }
+            set { _ime = value; }
           
         }
 
         public string Prezime
         {
             get { return _prezime; }
+            set { _prezime = value; }
          
         }
 

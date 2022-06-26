@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<vuv_pcshop>
+	<admins>
+		<admin username="admin" password="admin">
+			
+		</admin>
+	</admins>
+</vuv_pcshop>
