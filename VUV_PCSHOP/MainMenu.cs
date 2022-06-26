@@ -31,20 +31,32 @@ namespace VUV_PCSHOP
             Console.Write("Username:");
             string username = Console.ReadLine();
             Console.Write("\nPassword:");
+            bool ispit = false;
             string password = Console.ReadLine();
             foreach (Admin admin in admins)
             {
                 if (admin.Username == username && admin.Password == password)
                 {
-                    Console.WriteLine("Login uspjesan!");
-                    Console.ReadKey();
-                    AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                    ispit = true;
+
+
                 }
 
             }
-            Console.WriteLine("Krivi unos!");
-            Console.ReadKey();
-            LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
+            if (ispit == true)
+            {
+                AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+
+                Console.WriteLine("Login uspjesan!");
+                Console.ReadKey();
+            }
+            else
+            {
+                LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
+                Console.WriteLine("Krivi unos!");
+                Console.ReadKey();
+            }
+       
 
         }
         private void AdminIzbornik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
