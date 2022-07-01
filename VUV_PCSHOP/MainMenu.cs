@@ -6,11 +6,13 @@ namespace VUV_PCSHOP
 {
     class MainMenu : Program
     {
+        //exception done
         public void Start(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
         {
             Console.Title = ("IT trgovina");
             LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
         }
+       //exception done
         private void LoginMeni(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
         {
             string prompt1 = "Prijava:";
@@ -26,13 +28,34 @@ namespace VUV_PCSHOP
                 RunMainMenu(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
             }
         }
+      //excpetion done
         private void AdminLogin(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
         {
-            Console.Write("Username:");
-            string username = Console.ReadLine();
-            Console.Write("\nPassword:");
+            string username="";
+            string password="";
+
+            bool ex = false;
+            while (ex == false)
+            {
+                Console.Write("Username:");
+                 username = Console.ReadLine();
+                Console.Write("\nPassword:");
+                
+                 password = Console.ReadLine();
+                if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                {
+                    Exceptions e1 = new Exceptions("Username/Password ne smije bit prazan!");
+                    Console.WriteLine(e1);
+                    Console.WriteLine("Pritisnite bilo koju tipku za nastavak...");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    ex = true;
+                }
+            }
             bool ispit = false;
-            string password = Console.ReadLine();
             foreach (Admin admin in admins)
             {
                 if (admin.Username == username && admin.Password == password)
@@ -59,6 +82,7 @@ namespace VUV_PCSHOP
        
 
         }
+        //exception done
         private void AdminIzbornik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -85,6 +109,7 @@ namespace VUV_PCSHOP
 
             }
         }
+        //exception done
         private void DABZaposlenici(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -108,23 +133,87 @@ namespace VUV_PCSHOP
 
             }
         }
+        //exception done
         private void DodavanjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
 
-            Console.WriteLine("OIB:");
-            string oibz = Console.ReadLine();
-            Console.WriteLine("Ime:");
-            string imez = Console.ReadLine();
-            Console.WriteLine("Prezime:");
-            string prezimez = Console.ReadLine();
-            Console.WriteLine("Sifra Zaposlenika:");
-            string sifraz = Console.ReadLine();
-            Zaposlenik novizaposlenik = new Zaposlenik(oibz, imez, prezimez, sifraz);
-            zaposlenici.Add(novizaposlenik);
-            Console.WriteLine("Uspjesno dodavanje!");
-            Console.ReadKey();
+            bool ex = false;
+            while (ex == false)
+            {
+
+                Console.WriteLine("OIB:");
+                string oibz = Console.ReadLine();
+                if (oibz.Length != 11 || string.IsNullOrEmpty(oibz) || double.TryParse(oibz, out double provjera) == false || oibz.Contains(" "))
+                {
+                    Exceptions ex1 = new Exceptions("Oib moze sadrzit samo brojeve i mora biti duzine 11!");
+                    Console.WriteLine(ex1);
+                    Console.ReadKey();
+
+                }
+                else
+                {
+                    Console.WriteLine("Ime:");
+                    string imez = Console.ReadLine();
+                    if (string.IsNullOrEmpty(imez)==true)
+                    {
+                        Exceptions ex1 = new Exceptions("Ime ne smije bit prazno!");
+                        Console.WriteLine(ex1);
+                        Console.ReadKey();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Prezime:");
+                        string prezimez = Console.ReadLine();
+                        if (string.IsNullOrEmpty(prezimez)==true)
+                        {
+                            Exceptions ex1 = new Exceptions("Prezime ne smije bit prazno!");
+                            Console.WriteLine(ex1);
+                            Console.ReadKey();
+
+                        }
+                        else
+                        {
+                            
+                            Console.WriteLine("Sifra Zaposlenika:");
+                            string sifraz = Console.ReadLine();
+                            if (double.TryParse(sifraz, out double provjera2) || string.IsNullOrEmpty(sifraz) == true)
+                            {
+                                Exceptions ex1 = new Exceptions("Sifra zaposlenika moze bit samo broj i ne smije bit prazna!");
+                                Console.WriteLine(ex1);
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                bool postoji = false;
+                                  foreach(Zaposlenik zap in zaposlenici)
+                                {
+                                    if(zap.Sifrazaposlenika==sifraz)
+                                    {
+                                        Console.WriteLine("Sifra vec u koriscenju!");
+                                        postoji = true;
+                                        Console.ReadKey();
+                                    }
+                                }
+                                  if(postoji==false)
+                                {
+                                    Zaposlenik novizaposlenik = new Zaposlenik(oibz, imez, prezimez, sifraz);
+                                    zaposlenici.Add(novizaposlenik);
+                                    Console.WriteLine("Uspjesno dodavanje!");
+                                    Console.ReadKey();
+                                    ex = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                Console.Clear();
+           
+         
+            }
             DABZaposlenici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
         }
+        //exceptions done
         private void AzuriranjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "Odaberite Zaposlenika";
@@ -156,21 +245,68 @@ namespace VUV_PCSHOP
                 switch (selectedIndex2)
                 {
                     case 0:
-
+                        bool isp1 = false;
+                        while(isp1==false)
+                        { 
                         Console.WriteLine("Unesite novi OIB:");
                         string oib = Console.ReadLine();
-                        zaposlenici[selectedIndex].Oib = oib;
 
+                        if (oib.Length != 11 || string.IsNullOrEmpty(oib) || double.TryParse(oib, out double provjera) == false || oib.Contains(" "))
+                        {
+                            Exceptions ex1 = new Exceptions("Oib moze sadrzit samo brojeve i mora biti duzine 11!");
+                                Console.WriteLine(ex1);
+                                Console.ReadKey();
+
+                        }
+                        else
+                        {
+                            zaposlenici[selectedIndex].Oib = oib;
+                                isp1 = true;
+                            }
+
+                        }
                         break;
                     case 1:
+                        bool isp2 = false;
+                        while(isp2==false)
+                        {     
                         Console.WriteLine("Unesite novo Ime:");
-                        string ime = Console.ReadLine();
-                        zaposlenici[selectedIndex].Ime = ime;
+                        string imez = Console.ReadLine();
+
+                        if (string.IsNullOrEmpty(imez) == false)
+                        {
+                            Exceptions ex1 = new Exceptions("Ime ne smije bit prazno!");
+                                Console.WriteLine(ex1);
+                                Console.ReadKey();
+
+                        }
+                        else
+                        {
+                            zaposlenici[selectedIndex].Ime = imez;
+                                isp2 = true;
+                            }
+                        }
                         break;
                     case 2:
+                      bool isp3 = false;
+                        while(isp3==false)
+                        { 
                         Console.WriteLine("Unesite novo prezime:");
                         string prezime = Console.ReadLine();
-                        zaposlenici[selectedIndex].Prezime = prezime;
+                        if (string.IsNullOrEmpty(prezime) == false)
+                        {
+                            Exceptions ex1 = new Exceptions("Prezime ne smije bit prazno!");
+                                Console.WriteLine(ex1);
+                                Console.ReadKey();
+
+                        }
+                        else
+                        {
+                            zaposlenici[selectedIndex].Prezime = prezime;
+                                isp3 = true;
+                        }
+                        }
+
                         break;
                     case 3:
                         AzuriranjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
@@ -179,8 +315,10 @@ namespace VUV_PCSHOP
                 }
 
             }
-
+            Console.Clear();
         }
+        //dodat zaposleniku novi atribut zaposlen=da/ne umjesto da ga obrise
+        //exceptions done
         private void BrisanjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "Odaberite Zaposlenika koji zelite obrisat";
@@ -207,6 +345,7 @@ namespace VUV_PCSHOP
                 zaposlenici.RemoveAt(selectedIndex);
             }
         }
+        //exceptions done
         private void Statistika(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -230,6 +369,7 @@ namespace VUV_PCSHOP
                     break;
             }
         }
+        //exceptions done, provjerit jel sortiranje radi
         private void NajprodavanijiArt(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             Dictionary<string, int> topart = new Dictionary<string, int>();
@@ -275,6 +415,7 @@ namespace VUV_PCSHOP
             AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
 
         }
+        //exceptions done, provjerit jel sortiranje radi
         private void NajRadnici(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             Dictionary<string,double> zapnarac = new Dictionary<string,double>();
@@ -319,6 +460,7 @@ namespace VUV_PCSHOP
             AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
 
         }
+        //exceptions done, provjerit jel sortiranje radi
         private void NajKat(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             Dictionary<string, int> topkat = new Dictionary<string, int>();
@@ -360,16 +502,45 @@ namespace VUV_PCSHOP
             Console.ReadKey();
             AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
         }
-        //dodat brisanje racuna
+        //dodat racunu novi atribut stonirano=da/ne umjesto brisanja iz datoteke
         private void StonirajRacun(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
-            
+            string prompt = "Odaberite racun: koji zelite obrisat";
+            string[] options=new string[racuni.Count+1];
+            int j = 0;
+            Console.Clear();
+            Console.WriteLine("Racuni:");
+            foreach (Racun r1 in racuni)
+            {
+                options[j] = "Sifra racuna:" + r1.Sifraracuna + " Zaposlenik:" + Zaposlenik.PovratZaposlenika(r1.Sifrazaposlenika, zaposlenici);
+                Console.WriteLine("Sifra Racuna:"+r1.Sifraracuna+"\nArtikli:");
+                for(int i=0;i<r1.Stavke.Count;i++)
+                {
+                    Console.WriteLine("Ime Artikla:"+r1.Stavke[i].Naziv+"     Kolicina:"+r1.Stavke[i].Kolicina);
+                }
+                j++;
+            }
+            Console.WriteLine("Pritisnite bilo koju tipku za nastavak...");
+            Console.ReadKey();
+            options[racuni.Count] = "izlaz";
+            Meni stoniraj = new Meni(options, prompt);
+            int index=stoniraj.Run();
+            if (index == racuni.Count)
+            {
+                AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+            }
+            else
+            {
+                racuni.RemoveAt(index);
+                AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+            }    
         }
-        //dodat dodavanje i brisanje kategorija
+        //dodat dodavanje i brisanje kategorija, dodat kategorijama atribut obrisani:da/ne;
         private void DBKategorije(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
 
         }
+        //exceptions done
         private void RunMainMenu(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "Odaberite Zaposlenika";
@@ -389,8 +560,7 @@ namespace VUV_PCSHOP
             Izbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
 
             }
-
-    
+        //exceptions done
         private void Izbornik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -420,6 +590,7 @@ namespace VUV_PCSHOP
             }
             
         }
+        //exceptions done
         private void DABArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -443,6 +614,7 @@ namespace VUV_PCSHOP
 
             }
         }
+        //exceptions done
         private void DodavanjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
 
@@ -475,27 +647,66 @@ namespace VUV_PCSHOP
                 else
                 {
 
-
+                bool ex = false;
+                while (ex == false)
+                {
                     Console.WriteLine("Naziv:");
                     string naziv = Console.ReadLine();
-                    Console.WriteLine("Opis:");
-                    string opis = Console.ReadLine();
-                    Console.WriteLine("Jedinica Mjere:");
-                    string mjera = Console.ReadLine();
-                    Console.WriteLine("Jedinicna cijena:");
-                    double kolicina = Convert.ToDouble(Console.ReadLine());
-                    Artikl noviartikl = new Artikl(naziv, opis, mjera, kolicina);
-                    noviartikl.DodavanjeKategorije(kljuckat[selectedIndex]);
-                    sviartikli.Add(noviartikl);
-                    Console.WriteLine("Dodavanje Uspjesno!");
-                    Console.ReadKey();
+                    if (string.IsNullOrEmpty(naziv))
+                    {
+                        Exceptions ex1 = new Exceptions("Naziv ne smije biti prazan!");
+                        Console.WriteLine(ex1);
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+
+                        Console.WriteLine("Opis:");
+                        string opis = Console.ReadLine();
+                        if (string.IsNullOrEmpty(opis))
+                        {
+                            Exceptions ex1 = new Exceptions("Opis ne smije biti prazan!");
+                            Console.WriteLine(ex1);
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+
+                            Console.WriteLine("Jedinica Mjere:");
+                            string mjera = Console.ReadLine();
+
+
+                            Console.WriteLine("Jedinicna cijena:");
+                            string skolicina =Console.ReadLine();
+                            if (double.TryParse(skolicina, out double kolicina) == false || string.IsNullOrEmpty(skolicina))
+                            {
+                                Exceptions ex1 = new Exceptions("Cijena ne smije bit prazna i mora bit brojcana!");
+                                Console.WriteLine(ex1);
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                Artikl noviartikl = new Artikl(naziv, opis, mjera, kolicina);
+                                noviartikl.DodavanjeKategorije(kljuckat[selectedIndex]);
+                                sviartikli.Add(noviartikl);
+                                Console.WriteLine("Dodavanje Uspjesno!");
+                                Console.ReadKey();
+                                ex = true;
+                            }
+                        }
+
+                    }
+                 
+                  
                     Console.Clear();
+                }
                  }
            
 
 
 
         }
+        //exp done
         private void AzuriranjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
           
@@ -529,53 +740,107 @@ namespace VUV_PCSHOP
                     string[] options2 = {"Kategoriju","Naziv","Opis","Jedinicnu Mjeru","Cijenu","Izlaz"};
                         Meni mainMeni2 = new Meni(options2, prompt2);
                         int selectedIndex2 = mainMeni2.Run();
-                        switch(selectedIndex2)
-                        {
-                            case 0:
-  
-                                string prompt3=("Odaberite novu kategoriju:");
-                                string[] options3=new string[kategorije.Count+1];
-                                options3[kategorije.Count]="Nazad";
-                                int x = 0;
-                                foreach (KeyValuePair<string, string> kljuc in kategorije)
-                                {
-                                    listakljuceva.Add(kljuc.Value);
-                                    options3[x] = kljuc.Value;
-                                    x++;
-                                }
-                                Meni mainMeni3 = new Meni(options3, prompt3);
-                                int selectedIndex3 = mainMeni3.Run();
+                    switch (selectedIndex2)
+                    {
+                        case 0:
 
-                                if(selectedIndex3==kategorije.Count)
+                            string prompt3 = ("Odaberite novu kategoriju:");
+                            string[] options3 = new string[kategorije.Count + 1];
+                            options3[kategorije.Count] = "Nazad";
+                            int x = 0;
+                            foreach (KeyValuePair<string, string> kljuc in kategorije)
+                            {
+                                listakljuceva.Add(kljuc.Value);
+                                options3[x] = kljuc.Value;
+                                x++;
+                            }
+                            Meni mainMeni3 = new Meni(options3, prompt3);
+                            int selectedIndex3 = mainMeni3.Run();
+
+                            if (selectedIndex3 == kategorije.Count)
+                            {
+                                AzuriranjeArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                            }
+                            else
+                            {
+
+                                sviartikli[selectedIndex].Kategorija = listakljuceva[selectedIndex3];
+                            }
+                            break;
+                        case 1:
+                            bool isp1 = false;
+                            while (isp1 == false)
+                            {
+
+
+                                Console.WriteLine("Unesite novi naziv:");
+                                string naziv = Console.ReadLine();
+                                if (string.IsNullOrEmpty(naziv) == true)
                                 {
-                                    AzuriranjeArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+
+                                    Exceptions ex1 = new Exceptions("Naziv ne smije bit prazan!");
+                                    Console.WriteLine(ex1);
+                                    Console.ReadKey();
+                                    Console.Clear();
                                 }
                                 else
                                 {
 
-                                    sviartikli[selectedIndex].Kategorija = listakljuceva[selectedIndex3];
+                                    isp1 = true;
+                                    sviartikli[selectedIndex].Naziv = naziv;
                                 }
-                                break;
-                            case 1:
-                                Console.WriteLine("Unesite novi naziv:");
-                                string naziv = Console.ReadLine();
-                                sviartikli[selectedIndex].Naziv = naziv;
-                                break;
-                            case 2:
+                            }
+                            break;
+                        case 2:
+                            bool isp2 = false;
+                            while (isp2 == false)
+                            {
+
+
                                 Console.WriteLine("Unesite novi opis:");
                                 string opis = Console.ReadLine();
-                                sviartikli[selectedIndex].Opis = opis;
-                                break;
-                            case 3:
-                                Console.WriteLine("Unesite novu jedinicnu mjeru:");
-                                string jedmjer = Console.ReadLine();
-                                sviartikli[selectedIndex].JedinicaMjere = jedmjer;
-                                break;
-                            case 4:
+                                if (string.IsNullOrEmpty(opis) == true)
+                                {
+
+                                    Exceptions ex1 = new Exceptions("Opis ne smije bit prazan!");
+                                    Console.WriteLine(ex1);
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+                                else
+                                {
+
+                                    isp2 = true;
+                                    sviartikli[selectedIndex].Opis = opis;
+                                }
+                            }
+                            break;
+                        case 3:
+                            Console.WriteLine("Unesite novu jedinicnu mjeru:");
+                            string jedmjer = Console.ReadLine();
+                            sviartikli[selectedIndex].JedinicaMjere = jedmjer;
+                            break;
+                        case 4:
+                            bool isp4 = false;
+                            while (isp4 == false)
+                            {
+                       
                                 Console.WriteLine("Unesite novu cijenu:");
                                 string cijena = Console.ReadLine();
-                                if (int.TryParse(cijena, out int cij))
+                                if (double.TryParse(cijena, out double cij) == false || string.IsNullOrEmpty(cijena))
+                                {
+                                    Exceptions ex1 = new Exceptions("Cijena ne smije bit prazna i mora bit brojcana!");
+                                    Console.WriteLine(ex1);
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+                                else
+                                {
                                     sviartikli[selectedIndex].Cijena = cij;
+                                    isp4 = true;
+                                }
+                                
+                            }
                                 break;
                             case 5:
                                ispit=false;
@@ -585,6 +850,7 @@ namespace VUV_PCSHOP
                 }
             
         }
+        //exceptions done | dodat atribut obrisani:da|ne umjesto brisanja cijelog
         private void BrisanjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
            
@@ -758,7 +1024,7 @@ namespace VUV_PCSHOP
 
 
             }
-            catch (Exception)
+            catch (Exceptions)
             {
 
                 throw;

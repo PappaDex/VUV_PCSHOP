@@ -24,7 +24,7 @@ namespace VUV_PCSHOP
                 string prefix;
                 if (i == selectedIndex)
                 {
-                    prefix = ">";
+                    prefix = "";
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor= ConsoleColor.White;
                 }

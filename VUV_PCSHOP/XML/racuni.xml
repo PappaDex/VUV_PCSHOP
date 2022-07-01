@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
   <racuni>
-    <racun sifrazaposlenika="1" sifraracuna="8819" ukupaniznos="16097" datum="6/21/2022 3:48:58 PM">
-      <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="3" ukupnacijena="11097" />
-      <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="1" ukupnacijena="5000" />
-    </racun>
     <racun sifrazaposlenika="1" sifraracuna="5683" ukupaniznos="3699" datum="6/21/2022 3:49:12 PM">
       <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="1" ukupnacijena="3699" />
     </racun>

@@ -64,7 +64,18 @@ namespace VUV_PCSHOP
             string punoime = _ime + " " + _prezime;
             return punoime; 
         }
-      
+        public static string PovratZaposlenika(string sifrazaposlenika,List<Zaposlenik>zaposlenici)
+        {
+            foreach(Zaposlenik zap in zaposlenici)
+            {
+                if(sifrazaposlenika==zap.Sifrazaposlenika)
+                {
+                    return zap.IspisPunogImena();
+                }
+            }
+            return sifrazaposlenika;
+            
+        }
 
     }
 }
