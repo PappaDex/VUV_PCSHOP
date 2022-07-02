@@ -453,7 +453,7 @@ namespace VUV_PCSHOP
             foreach (XmlNode art in artikl)
             {
 
-                if (art.Attributes["dostupnost"]!=null && art.Attributes["dostupnost"].Value != null)
+                if (art.Attributes["dostupnost"]!=null && art.Attributes["dostupnost"].Value != null && art.Attributes["obrisano"]!=null && art.Attributes["obrisano"].Value!=null)
                 {
                     sviartikli.Add(new Artikl(
                     art.Attributes["kategorija"].Value,
@@ -461,7 +461,8 @@ namespace VUV_PCSHOP
                     art.Attributes["opis"].Value,
                     art.Attributes["jedinicamjere"].Value,
                   Convert.ToInt32(art.Attributes["cijena"].Value),
-                  art.Attributes["dostupnost"].Value
+                  art.Attributes["dostupnost"].Value,
+                  art.Attributes["obrisano"].Value
                     )); ; ;
                 }
                 else { 
@@ -667,6 +668,9 @@ namespace VUV_PCSHOP
                 XmlAttribute dostupnostAttr = xmlObject.CreateAttribute("dostupnost");
                 dostupnostAttr.Value = artikl.Dostupnost.ToString();
                 noviNode.Attributes.Append(dostupnostAttr);
+                XmlAttribute obrisanoAttr = xmlObject.CreateAttribute("obrisano");
+                obrisanoAttr.Value = artikl.Obrisano.ToString();
+                noviNode.Attributes.Append(obrisanoAttr);
 
                 artikliNode.AppendChild(noviNode);
                     }
@@ -721,13 +725,11 @@ namespace VUV_PCSHOP
             XmlNode stavkeNode = racuniNode.FirstChild;
 
 
-
-            Console.WriteLine("broj racuna:"+racuni.Count);
             foreach (Racun rac in racuni)
             {
                 s1.Clear();
                 s1 = rac.Stavke;
-                Console.WriteLine("Broj stavki:"+ rac.Stavke.Count);  
+
                 foreach (Stavka sta in s1)
                 {
 

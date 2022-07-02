@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
   <artikli>
-    <artikl kategorija="LAP" naziv="Laptop COOL" opis="Odlican Uredski laptop" jedinicamjere="kol" cijena="3699" dostupnost="da" />
-    <artikl kategorija="KOM" naziv="HyperX Ram 4GB" opis="DDR4 2333hz ram" jedinicamjere="GB" cijena="399" dostupnost="ne" />
-    <artikl kategorija="KOM" naziv="Ram" opis="ram" jedinicamjere="gb" cijena="399" dostupnost="da" />
-    <artikl kategorija="KON" naziv="PS5" opis="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjere="kom" cijena="5000" dostupnost="da" />
+    <artikl kategorija="LAP" naziv="Laptop COOL" opis="Odlican Uredski laptop" jedinicamjere="kol" cijena="3699" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KOM" naziv="HyperX Ram 4GB" opis="DDR4 2333hz ram" jedinicamjere="GB" cijena="399" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KOM" naziv="Ram" opis="ram" jedinicamjere="gb" cijena="399" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KON" naziv="PS5" opis="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjere="kom" cijena="5000" dostupnost="da" obrisano="ne" />
   </artikli>
 </vuv_pcshop>

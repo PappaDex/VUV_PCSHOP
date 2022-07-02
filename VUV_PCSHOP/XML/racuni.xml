@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
   <racuni>
-    <racun sifrazaposlenika="1" sifraracuna="5683" ukupaniznos="3699" datum="6/21/2022 3:49:12 PM">
+    <racun sifrazaposlenika="1" sifraracuna="5683" ukupaniznos="3699" datum="6/21/2022 3:49:12 PM" stonirano="da">
       <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="1" ukupnacijena="3699" />
     </racun>
-    <racun sifrazaposlenika="2" sifraracuna="6243" ukupaniznos="108699" datum="6/21/2022 3:50:50 PM">
+    <racun sifrazaposlenika="2" sifraracuna="6243" ukupaniznos="108699" datum="6/21/2022 3:50:50 PM" stonirano="ne">
       <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="1" ukupnacijena="3699" />
       <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="21" ukupnacijena="105000" />
     </racun>
-    <racun sifrazaposlenika="1" sifraracuna="2453" ukupaniznos="798" datum="6/21/2022 5:04:05 PM">
+    <racun sifrazaposlenika="1" sifraracuna="2453" ukupaniznos="798" datum="6/21/2022 5:04:05 PM" stonirano="ne">
       <stavka kategorijaartikla="KOM" nazivartikla="HyperX Ram 4GB" opisartikla="DDR4 2333hz ram" jedinicamjereartikla="GB" cijenaartikla="399" kolicina="2" ukupnacijena="798" />
     </racun>
-    <racun sifrazaposlenika="1" sifraracuna="8898" ukupaniznos="1197" datum="6/21/2022 5:51:34 PM">
+    <racun sifrazaposlenika="1" sifraracuna="8898" ukupaniznos="1197" datum="6/21/2022 5:51:34 PM" stonirano="ne">
       <stavka kategorijaartikla="KOM" nazivartikla="Ram" opisartikla="ram" jedinicamjereartikla="gb" cijenaartikla="399" kolicina="3" ukupnacijena="1197" />
     </racun>
-    <racun sifrazaposlenika="1" sifraracuna="4920" ukupaniznos="1197" datum="6/21/2022 5:53:10 PM">
+    <racun sifrazaposlenika="1" sifraracuna="4920" ukupaniznos="1197" datum="6/21/2022 5:53:10 PM" stonirano="ne">
       <stavka kategorijaartikla="KOM" nazivartikla="Ram" opisartikla="ram" jedinicamjereartikla="gb" cijenaartikla="399" kolicina="3" ukupnacijena="1197" />
     </racun>
   </racuni>

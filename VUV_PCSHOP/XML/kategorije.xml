@@ -6,5 +6,6 @@
     <kategorija kljuc="KON" vrijednost="Konzole" />
     <kategorija kljuc="MON" vrijednost="Monitori,Periferija" />
     <kategorija kljuc="SOF" vrijednost="Software,Kablovi" />
+    <kategorija kljuc="MOB" vrijednost="Mobitel,Tablet" />
   </kategorije>
 </vuv_pcshop>

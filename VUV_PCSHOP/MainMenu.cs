@@ -68,16 +68,18 @@ namespace VUV_PCSHOP
             }
             if (ispit == true)
             {
-                AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
 
                 Console.WriteLine("Login uspjesan!");
                 Console.ReadKey();
+                AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+
             }
             else
             {
-                LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
                 Console.WriteLine("Krivi unos!");
                 Console.ReadKey();
+                LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
+             
             }
        
 
@@ -502,7 +504,7 @@ namespace VUV_PCSHOP
             Console.ReadKey();
             AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
         }
-        //dodat racunu novi atribut stonirano=da/ne umjesto brisanja iz datoteke
+
         private void StonirajRacun(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "Odaberite racun: koji zelite obrisat";
@@ -513,7 +515,7 @@ namespace VUV_PCSHOP
             foreach (Racun r1 in racuni)
             {
                 options[j] = "Sifra racuna:" + r1.Sifraracuna + " Zaposlenik:" + Zaposlenik.PovratZaposlenika(r1.Sifrazaposlenika, zaposlenici);
-                Console.WriteLine("Sifra Racuna:"+r1.Sifraracuna+"\nArtikli:");
+                Console.WriteLine("\nSifra Racuna:"+r1.Sifraracuna+"\nArtikli:");
                 for(int i=0;i<r1.Stavke.Count;i++)
                 {
                     Console.WriteLine("Ime Artikla:"+r1.Stavke[i].Naziv+"     Kolicina:"+r1.Stavke[i].Kolicina);
@@ -535,7 +537,7 @@ namespace VUV_PCSHOP
                 AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
             }    
         }
-        //dodat dodavanje i brisanje kategorija, dodat kategorijama atribut obrisani:da/ne;
+        
         private void DBKategorije(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             {
@@ -570,6 +572,7 @@ namespace VUV_PCSHOP
                 {
                     Exceptions ex1 = new Exceptions("Skracenica za kategoriju ne smije bit prazna!");
                     Console.WriteLine(ex1);
+                    Console.ReadKey();
                 }
                 else
                 {
@@ -579,6 +582,7 @@ namespace VUV_PCSHOP
                     {
                         Exceptions ex2 = new Exceptions("Ime kategorije ne smije bit prazno i ne moze bit jednako!");
                         Console.WriteLine(ex2);
+                        Console.ReadKey();
 
 
                     }
@@ -586,11 +590,14 @@ namespace VUV_PCSHOP
                     {
                         Console.WriteLine("Dodavanje uspjesno!");
                         kategorije.Add(skrat, kat);
+                        ex = true;
                         Console.ReadKey();
                     }
                 }
+                Console.Clear();
             }
             Console.Clear();
+            DBKategorije(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
         }
         private void BrisanjeKat(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
@@ -942,22 +949,26 @@ namespace VUV_PCSHOP
                 }
             
         }
-        //exceptions done | dodat atribut obrisani:da|ne umjesto brisanja cijelog
+        //exceptions done 
         private void BrisanjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
            
                 string prompt = "Odaberite Artikl koji zelite obrisat";
                 string[] options = { "" };
-
+            List<Artikl> neobirsaniart = new List<Artikl>();
                 int i = 0;
                 options = new string[sviartikli.Count + 1];
                 options[sviartikli.Count] = "Izlaz";
 
                 foreach (Artikl artikl in sviartikli)
                 {
+                     if(artikl.Obrisano=="ne")
+                {
+                    neobirsaniart.Add(artikl);
                     options[i] = artikl.Naziv;
                     i++;
                 }
+            }
                 options[i] = "Izlaz";
                 Meni mainMeni = new Meni(options, prompt);
                 int selectedIndex = mainMeni.Run();
@@ -967,8 +978,9 @@ namespace VUV_PCSHOP
                 }
                 else
                 {
-                    sviartikli.RemoveAt(selectedIndex);
-                }
+                    int ind=sviartikli.IndexOf(neobirsaniart[selectedIndex]);
+                sviartikli[ind].Obrisati(true);
+            }
            
         }
         private void PregledArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
@@ -999,7 +1011,7 @@ namespace VUV_PCSHOP
 
                 foreach (Artikl art in sviartikli)
                 {
-                    if (art.Kategorija == kljuckat[selectedIndex3])
+                    if (art.Kategorija == kljuckat[selectedIndex3] && art.Obrisano=="ne")
                     {
                         artikliukat.Add(art);
                         x1++;
@@ -1009,7 +1021,7 @@ namespace VUV_PCSHOP
                 }
                 string[] options1 = new string[x1+1];
                 int j = 0;
-                foreach (Artikl art in sviartikli)
+                foreach (Artikl art in artikliukat)
                 {
                     if (art.Kategorija == kljuckat[selectedIndex3])
                     {
@@ -1157,7 +1169,7 @@ namespace VUV_PCSHOP
 
                     foreach (Artikl art in sviartikli)
                     {
-                        if (art.Kategorija == kljuckat[selectedIndex])
+                        if (art.Kategorija == kljuckat[selectedIndex] && art.Obrisano=="ne")
                         {
                         if (art.Dostupnost == "da")
                             artikliukat.Add(art);
@@ -1169,9 +1181,9 @@ namespace VUV_PCSHOP
 
                
                 int j = 0;
-                    foreach (Artikl art in sviartikli)
+                    foreach (Artikl art in artikliukat)
                     {
-                    if (art.Kategorija == kljuckat[selectedIndex])
+                    if (art.Kategorija == kljuckat[selectedIndex]&&art.Obrisano=="ne")
                     {
                         if (art.Dostupnost == "da")
                         { 
@@ -1247,7 +1259,7 @@ namespace VUV_PCSHOP
             {
                 foreach(Racun rac in racuni)
                 {
-                    if (rac.Sifrazaposlenika == zaposlenici[selectedIndex].Sifrazaposlenika)
+                    if (rac.Sifrazaposlenika == zaposlenici[selectedIndex].Sifrazaposlenika && rac.Stonirano=="ne")
                     { 
                     Console.WriteLine("Sifra Racuna:"+rac.Sifraracuna);
                     Console.WriteLine("Datum:"+rac.Datum);

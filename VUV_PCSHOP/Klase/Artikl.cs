@@ -13,6 +13,7 @@ namespace VUV_PCSHOP
         private string _opis;
         private string _jedinicamjere;
         private double _cijena;
+        private string _obrisano;
 
         //private Dictionary<string, Artikl> kategorije { get; set; }
         public Artikl(string naziv, string opis, string jedinicamjere, double cijena)
@@ -24,6 +25,10 @@ namespace VUV_PCSHOP
             if (_dostupnost == null)
             {
                 _dostupnost = "da";
+            }
+            if(_obrisano==null)
+            {
+                _obrisano = "ne";
             }
         }
         public Artikl(string kategorija, string naziv, string opis, string jedinicamjere, double cijena)
@@ -37,8 +42,12 @@ namespace VUV_PCSHOP
             {
                 _dostupnost = "da";
             }
+            if (_obrisano == null)
+            {
+                _obrisano = "ne";
+            }
         }      
-        public Artikl(string kategorija, string naziv, string opis, string jedinicamjere, double cijena,string dostupnost)
+        public Artikl(string kategorija, string naziv, string opis, string jedinicamjere, double cijena,string dostupnost,string obrisano)
         {
             _kategorija = kategorija;
             _naziv = naziv;
@@ -46,6 +55,7 @@ namespace VUV_PCSHOP
             _jedinicamjere = jedinicamjere;
             _cijena = cijena;
             _dostupnost = dostupnost;
+            _obrisano = obrisano;
         }
         public Artikl() { }
         public string Kategorija
@@ -73,6 +83,11 @@ namespace VUV_PCSHOP
             get { return _dostupnost; }
             set { _dostupnost = value; }
         }
+        public string Obrisano
+        {
+            get { return _obrisano; }
+            set { _obrisano = value; }
+        }
         public double Cijena
         {
             get { return _cijena; }
@@ -95,6 +110,18 @@ namespace VUV_PCSHOP
             }
 
         }
-      
+        public void Obrisati(bool ispit)
+        {
+            if (ispit == false)
+            {
+                _obrisano = "ne";
+            }
+            else
+            {
+                _obrisano = "da";
+            }
+
+        }
+
     }
 }
