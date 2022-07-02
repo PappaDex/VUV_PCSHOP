@@ -11,6 +11,7 @@ namespace VUV_PCSHOP
         private double _ukupniznos;
         private DateTime _datum;
         private List<Stavka> stavke;
+        private string _stonirano;
         Random rand = new Random();
         public Racun(string sracun,string szaposlenik,double uiznos,DateTime datum,List<Stavka>stavka)
         {
@@ -21,6 +22,11 @@ namespace VUV_PCSHOP
             stavke = stavka;
             if (_sifraracuna == string.Empty)
                 _sifraracuna = Convert.ToString(rand.Next(1, 9000));
+
+            if (_stonirano == null)
+            {
+                _stonirano = "ne";
+            }
         }
         public Racun()
         {
@@ -29,6 +35,23 @@ namespace VUV_PCSHOP
             stavke = new List<Stavka>();
             if (_sifraracuna == string.Empty)
                 _sifraracuna = Convert.ToString(rand.Next(1, 9000));
+
+            if (_stonirano == null)
+            {
+                _stonirano = "ne";
+            }
+        }
+        public Racun(string sracun, string szaposlenik, double uiznos, DateTime datum, List<Stavka> stavka,string stonirano)
+        {
+            _sifraracuna = sracun;
+            _sifrazaposlenika = szaposlenik;
+            _ukupniznos = uiznos;
+            _datum = datum;
+            stavke = stavka;
+            if (_sifraracuna == string.Empty)
+                _sifraracuna = Convert.ToString(rand.Next(1, 9000));
+
+            _stonirano = stonirano;
         }
         public void DodavanjeStavke(Stavka stavka)
         {
@@ -56,6 +79,23 @@ namespace VUV_PCSHOP
         public List<Stavka> Stavke
         {
             get { return stavke; }
+        }
+        public string Stonirano
+        {
+            get { return _stonirano; }
+            set { _stonirano = value; }
+        }
+        public void Stoniraj(bool ispit)
+        {
+            if (ispit == false)
+            {
+                _stonirano = "ne";
+            }
+            else
+            {
+                _stonirano = "da";
+            }
+
         }
     }
 }

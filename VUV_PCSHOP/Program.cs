@@ -510,6 +510,21 @@ namespace VUV_PCSHOP
 
                 Convert.ToInt32(stavka.Attributes["kolicina"].Value)));
                 }
+                if (rac.Attributes["stonirano"] != null && rac.Attributes["stonirano"].Value != null)
+                {
+                    r1.Add(new Racun(
+                         rac.Attributes["sifraracuna"].Value,
+                                  rac.Attributes["sifrazaposlenika"].Value,
+                      Convert.ToDouble(rac.Attributes["ukupaniznos"].Value),
+                      Convert.ToDateTime(rac.Attributes["datum"].Value),
+                      s1,
+                      rac.Attributes["stonirano"].Value
+                      ));
+                }
+                else
+                {
+
+                
                 r1.Add(new Racun(
                        rac.Attributes["sifraracuna"].Value,
                                 rac.Attributes["sifrazaposlenika"].Value,
@@ -517,7 +532,9 @@ namespace VUV_PCSHOP
                     Convert.ToDateTime(rac.Attributes["datum"].Value),
                     s1
                     )) ;
-                s1=new List<Stavka>();
+               
+                }
+                s1 = new List<Stavka>();
             }
             sviracuni = r1;
         }
@@ -691,7 +708,10 @@ namespace VUV_PCSHOP
                 XmlAttribute datumAttr = xmlObject.CreateAttribute("datum");
                 datumAttr.Value = rac.Datum.ToString();
                 noviNode.Attributes.Append(datumAttr);
-           
+                XmlAttribute stoniranoAttr = xmlObject.CreateAttribute("stonirano");
+                stoniranoAttr.Value = rac.Stonirano.ToString();
+                noviNode.Attributes.Append(stoniranoAttr);
+
 
                 racuniNode.AppendChild(noviNode);
 

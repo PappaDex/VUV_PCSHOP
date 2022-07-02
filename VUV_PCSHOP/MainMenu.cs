@@ -531,13 +531,105 @@ namespace VUV_PCSHOP
             }
             else
             {
-                racuni.RemoveAt(index);
+                racuni[index].Stoniraj(true);
                 AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
             }    
         }
         //dodat dodavanje i brisanje kategorija, dodat kategorijama atribut obrisani:da/ne;
         private void DBKategorije(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
+            {
+                string prompt = "VUV PC SHOP";
+                string[] options = { "Dodavanje","Brisanje", "Nazad" };
+                Meni mainMeni = new Meni(options, prompt);
+                int selectedIndex = mainMeni.Run();
+                switch (selectedIndex)
+                {
+                    case 0:
+                        DodavanjeKat(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                        break;
+                    case 1:
+                        BrisanjeKat(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                        break;
+                    case 2:
+                        AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+                        break;
+  
+
+                }
+            }
+        }
+        private void DodavanjeKat(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+            bool ex = false;
+            while(ex==false)
+            {
+                Console.WriteLine("Unesite skracenicu za kategoriju");
+                string skrat = Console.ReadLine();
+                if(string.IsNullOrEmpty(skrat)==true)
+                {
+                    Exceptions ex1 = new Exceptions("Skracenica za kategoriju ne smije bit prazna!");
+                    Console.WriteLine(ex1);
+                }
+                else
+                {
+                    Console.WriteLine("Unesite ime za kategoriju");
+                    string kat = Console.ReadLine();
+                    if(string.IsNullOrEmpty(kat)==true||skrat==kat)
+                    {
+                        Exceptions ex2 = new Exceptions("Ime kategorije ne smije bit prazno i ne moze bit jednako!");
+                        Console.WriteLine(ex2);
+
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Dodavanje uspjesno!");
+                        kategorije.Add(skrat, kat);
+                        Console.ReadKey();
+                    }
+                }
+            }
+            Console.Clear();
+        }
+        private void BrisanjeKat(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
+        {
+
+            string prompt = "Odaberi kategoriju koju zelite obrisati";
+            string[] options = { "" };
+
+            List<string> kljuckat = new List<string>();
+            int i = 0;
+            foreach (KeyValuePair<string, string> kategorija in kategorije)
+            {
+
+                i++;
+                kljuckat.Add(kategorija.Key);
+
+            }
+            options = new string[i + 1];
+            int j = 0;
+            foreach (KeyValuePair<string, string> kategorija in kategorije)
+            {
+                options[j] = kategorija.Value;
+                j++;
+            }
+            options[i] = "Izlaz";
+            Meni mainMeni = new Meni(options, prompt);
+            int selectedIndex = mainMeni.Run();
+            if (selectedIndex == i)
+            {
+                DBKategorije(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+            }
+            else
+            {
+                kategorije.Remove(kljuckat[selectedIndex]);
+                Console.WriteLine("Obrisano:" + kljuckat[selectedIndex] +"   "+ options[selectedIndex]);
+                Console.ReadKey();
+                
+            }
+            BrisanjeArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+
 
         }
         //exceptions done
