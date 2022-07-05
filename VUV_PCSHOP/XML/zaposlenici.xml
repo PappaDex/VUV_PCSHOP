@@ -2,9 +2,11 @@
 <vuv_pcshop>
   <osoba>
     <zaposlenici>
-      <zaposlenik oib="123" ime="Đurica" prezime="Dakić" sifrazaposlenika="1" />
-      <zaposlenik oib="421" ime="Gita" prezime="Pejovic" sifrazaposlenika="2" />
-      <zaposlenik oib="1534" ime="Niksa" prezime="Balaz" sifrazaposlenika="3" />
+      <zaposlenik oib="11223344556" ime="Đurica" prezime="Dakić" sifrazaposlenika="1" otkaz="ne" />
+      <zaposlenik oib="17483948576" ime="Gita" prezime="Pejovic" sifrazaposlenika="2" otkaz="ne" />
+      <zaposlenik oib="19284758192" ime="Niksa" prezime="Balaz" sifrazaposlenika="3" otkaz="ne" />
+      <zaposlenik oib="39853928129" ime="Mario" prezime="Kuren" sifrazaposlenika="4" otkaz="ne" />
+      <zaposlenik oib="09246864891" ime="Karlo" prezime="Brezovecki" sifrazaposlenika="5" otkaz="ne" />
     </zaposlenici>
   </osoba>
 </vuv_pcshop>

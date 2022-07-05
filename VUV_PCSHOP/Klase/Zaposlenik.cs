@@ -10,6 +10,7 @@ namespace VUV_PCSHOP
         private string _ime;
         private string _prezime;
         private string _sifrazaposlenika;
+        private string _otkaz;
         //private string OIB
         //{
         //    get { return _oib; }
@@ -31,6 +32,18 @@ namespace VUV_PCSHOP
             _ime = ime;
             _prezime = prezime;
             _sifrazaposlenika = sifra;
+            if (_otkaz == null)
+            {
+                _otkaz = "ne";
+            }
+        }
+              public Zaposlenik(string oib, string ime, string prezime, string sifra,string otkaz)
+        {
+            _oib = oib;
+            _ime = ime;
+            _prezime = prezime;
+            _sifrazaposlenika = sifra;
+            _otkaz = otkaz;
         }
       
         public string Oib
@@ -59,7 +72,24 @@ namespace VUV_PCSHOP
             get { return _sifrazaposlenika; }
             
         }
-        public string IspisPunogImena()
+        public string VOtkaz
+        {
+            get { return _otkaz; }
+            set { _otkaz = value; }
+        }
+        public void Otkaz(bool ispit)
+        {
+            if (ispit == false)
+            {
+                _otkaz = "ne";
+            }
+            else
+            {
+                _otkaz = "da";
+            }
+
+        }
+        public override string IspisPunogImena()
         {
             string punoime = _ime + " " + _prezime;
             return punoime; 

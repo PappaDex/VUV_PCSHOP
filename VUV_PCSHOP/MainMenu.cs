@@ -6,13 +6,11 @@ namespace VUV_PCSHOP
 {
     class MainMenu : Program
     {
-        //exception done
         public void Start(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
         {
-            Console.Title = ("IT trgovina");
+            Console.Title = ("VUV PC SHOP");
             LoginMeni(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni, ref admins);
         }
-       //exception done
         private void LoginMeni(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
         {
             string prompt1 = "Prijava:";
@@ -28,7 +26,6 @@ namespace VUV_PCSHOP
                 RunMainMenu(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
             }
         }
-      //excpetion done
         private void AdminLogin(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni, ref List<Admin> admins)
         {
             string username="";
@@ -39,7 +36,7 @@ namespace VUV_PCSHOP
             {
                 Console.Write("Username:");
                  username = Console.ReadLine();
-                Console.Write("\nPassword:");
+                Console.Write("Password:");
                 
                  password = Console.ReadLine();
                 if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
@@ -84,7 +81,6 @@ namespace VUV_PCSHOP
        
 
         }
-        //exception done
         private void AdminIzbornik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -111,7 +107,6 @@ namespace VUV_PCSHOP
 
             }
         }
-        //exception done
         private void DABZaposlenici(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -135,7 +130,6 @@ namespace VUV_PCSHOP
 
             }
         }
-        //exception done
         private void DodavanjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
 
@@ -179,7 +173,7 @@ namespace VUV_PCSHOP
                             
                             Console.WriteLine("Sifra Zaposlenika:");
                             string sifraz = Console.ReadLine();
-                            if (double.TryParse(sifraz, out double provjera2) || string.IsNullOrEmpty(sifraz) == true)
+                            if (double.TryParse(sifraz, out double provjera2) == false || string.IsNullOrEmpty(sifraz) == true)
                             {
                                 Exceptions ex1 = new Exceptions("Sifra zaposlenika moze bit samo broj i ne smije bit prazna!");
                                 Console.WriteLine(ex1);
@@ -215,7 +209,6 @@ namespace VUV_PCSHOP
             }
             DABZaposlenici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
         }
-        //exceptions done
         private void AzuriranjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "Odaberite Zaposlenika";
@@ -264,6 +257,7 @@ namespace VUV_PCSHOP
                         {
                             zaposlenici[selectedIndex].Oib = oib;
                                 isp1 = true;
+                                AzuriranjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
                             }
 
                         }
@@ -286,6 +280,7 @@ namespace VUV_PCSHOP
                         {
                             zaposlenici[selectedIndex].Ime = imez;
                                 isp2 = true;
+                                AzuriranjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
                             }
                         }
                         break;
@@ -299,6 +294,7 @@ namespace VUV_PCSHOP
                         {
                             Exceptions ex1 = new Exceptions("Prezime ne smije bit prazno!");
                                 Console.WriteLine(ex1);
+
                                 Console.ReadKey();
 
                         }
@@ -306,6 +302,7 @@ namespace VUV_PCSHOP
                         {
                             zaposlenici[selectedIndex].Prezime = prezime;
                                 isp3 = true;
+                                AzuriranjeZaposlenik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
                         }
                         }
 
@@ -319,8 +316,6 @@ namespace VUV_PCSHOP
             }
             Console.Clear();
         }
-        //dodat zaposleniku novi atribut zaposlen=da/ne umjesto da ga obrise
-        //exceptions done
         private void BrisanjeZaposlenik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "Odaberite Zaposlenika koji zelite obrisat";
@@ -344,15 +339,15 @@ namespace VUV_PCSHOP
             }
             else
             {
-                zaposlenici.RemoveAt(selectedIndex);
+                zaposlenici[selectedIndex].Otkaz(true);
+                DABZaposlenici(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
             }
         }
-        //exceptions done
         private void Statistika(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
             Racun r1 = new Racun();
-            string[] options = { "Najprodavaniji artikli", "Najbolji radnici", "Najprodavanija kategorija", "izlaz" };
+            string[] options = { "Najprodavaniji artikli", "Najbolji radnici", "Prodaja u kategorijama", "izlaz" };
             Meni mainMeni = new Meni(options, prompt);
             int selectedIndex = mainMeni.Run();
             switch (selectedIndex)
@@ -371,10 +366,9 @@ namespace VUV_PCSHOP
                     break;
             }
         }
-        //exceptions done, provjerit jel sortiranje radi
         private void NajprodavanijiArt(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
-            Dictionary<string, int> topart = new Dictionary<string, int>();
+            Dictionary<string, double> topart = new Dictionary<string, double>();
             List<Stavka> stavka = new List<Stavka>();
             List<Stavka> topstavke = new List<Stavka>();
          
@@ -394,17 +388,19 @@ namespace VUV_PCSHOP
                 }
 
             }
-            var myList = topart.ToList();
+            Dictionary<double, string> sorttopart = new Dictionary<double, string>();
 
-            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-            var ordered = topart.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            //foreach (KeyValuePair<string, double> item in topart)
+            //{
+            //    sorttopart.Add(item.Value, item.Key);
+            //} 
             Console.WriteLine("5 Najprodavanijih artikala je:");
             int k = 0;
-             foreach(KeyValuePair<string,int> par in myList)
+            foreach (KeyValuePair<string, double> par in topart.OrderByDescending(pair => pair.Value))
             {
-                if(k<5)
+                if (k < 5)
                 {
-                    Console.WriteLine("Ime:{0}" + "  Kol:{1}",par.Key, par.Value) ;
+                    Console.WriteLine("Ime:{0}" + "  Kol:{1}", par.Key, par.Value);
                     k++;
                 }
                 else
@@ -413,11 +409,15 @@ namespace VUV_PCSHOP
                 }
             }
           
+            // foreach(KeyValuePair<string,double> par in topart)
+            //{
+      
+            //}
+          
             Console.ReadKey();
             AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
 
         }
-        //exceptions done, provjerit jel sortiranje radi
         private void NajRadnici(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             Dictionary<string,double> zapnarac = new Dictionary<string,double>();
@@ -440,12 +440,9 @@ namespace VUV_PCSHOP
                 
 
             }
-            var myList = zapnarac.ToList();
 
-            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-            var ordered = zapnarac.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
             Console.WriteLine("Najbolji radinici:");
-            foreach (KeyValuePair<string, double> par in myList)
+            foreach (KeyValuePair<string, double> par in zapnarac.OrderByDescending(pair => pair.Value))
             {
                 for(int a=0;a<zaposlenici.Count;a++)   
                 if (par.Key == zaposlenici[a].Sifrazaposlenika)
@@ -462,7 +459,6 @@ namespace VUV_PCSHOP
             AdminIzbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
 
         }
-        //exceptions done, provjerit jel sortiranje radi
         private void NajKat(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             Dictionary<string, int> topkat = new Dictionary<string, int>();
@@ -485,17 +481,14 @@ namespace VUV_PCSHOP
                 }
 
             }
-            var myList = topkat.ToList();
 
-            myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-            var ordered = topkat.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-            Console.WriteLine("5 Najprodavanijih Kategorija je:");
+            Console.WriteLine("Kolicina prodanog iz svake kategorije:");
             foreach (KeyValuePair<string, string> svekat in kategorije)
             {
                 foreach(KeyValuePair<string,int>prodanekat in topkat)
                 if (svekat.Key==prodanekat.Key)
                 {
-                    Console.WriteLine("Naziv Kategorije:{0}" + "  Kolicina prodanog iz kategorije:{1}", svekat.Value, prodanekat.Value);
+                    Console.WriteLine("{0}:" + "  Prodano:{1}", svekat.Value, prodanekat.Value);
                  
                 }
              
@@ -639,19 +632,34 @@ namespace VUV_PCSHOP
 
 
         }
-        //exceptions done
         private void RunMainMenu(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "Odaberite Zaposlenika";
-            string[] options = new string[zaposlenici.Count];
+          
             int i = 0;
             foreach (Zaposlenik z in zaposlenici)
             {
-                options[i] = z.IspisPunogImena();
+                if(z.VOtkaz=="ne")
+                {     
+              
                 i++;
+                }
 
             }
-          
+            string[] options = new string[i];
+            i = 0;
+            foreach (Zaposlenik z in zaposlenici)
+            {
+                if (z.VOtkaz == "ne")
+                {
+
+                    options[i] = z.IspisPunogImena();
+                    i++;
+                }
+
+            }
+         
+
             Meni mainMeni = new Meni(options, prompt);
             int selectedIndex = mainMeni.Run();
             PrijaveljniZaposlenik.prijavljeni = zaposlenici[selectedIndex];
@@ -659,7 +667,6 @@ namespace VUV_PCSHOP
             Izbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
 
             }
-        //exceptions done
         private void Izbornik(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -689,7 +696,6 @@ namespace VUV_PCSHOP
             }
             
         }
-        //exceptions done
         private void DABArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
             string prompt = "VUV PC SHOP";
@@ -713,7 +719,6 @@ namespace VUV_PCSHOP
 
             }
         }
-        //exceptions done
         private void DodavanjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
 
@@ -799,13 +804,13 @@ namespace VUV_PCSHOP
                   
                     Console.Clear();
                 }
-                 }
+                DABArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
+            }
            
 
 
 
         }
-        //exp done
         private void AzuriranjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
           
@@ -949,7 +954,6 @@ namespace VUV_PCSHOP
                 }
             
         }
-        //exceptions done 
         private void BrisanjeArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
         {
            
@@ -957,18 +961,28 @@ namespace VUV_PCSHOP
                 string[] options = { "" };
             List<Artikl> neobirsaniart = new List<Artikl>();
                 int i = 0;
-                options = new string[sviartikli.Count + 1];
-                options[sviartikli.Count] = "Izlaz";
+               
 
-                foreach (Artikl artikl in sviartikli)
-                {
-                     if(artikl.Obrisano=="ne")
+
+            foreach (Artikl artikl in sviartikli)
+            {
+                if (artikl.Obrisano == "ne")
                 {
                     neobirsaniart.Add(artikl);
-                    options[i] = artikl.Naziv;
-                    i++;
+
                 }
             }
+            options = new string[neobirsaniart.Count + 1];
+            options[neobirsaniart.Count] = "Izlaz";
+            foreach (Artikl artikl in sviartikli)
+                {
+                    if (artikl.Obrisano == "ne")
+                    {
+                        options[i] = artikl.Naziv;
+                        i++;
+                    }
+                }
+            
                 options[i] = "Izlaz";
                 Meni mainMeni = new Meni(options, prompt);
                 int selectedIndex = mainMeni.Run();
@@ -980,7 +994,9 @@ namespace VUV_PCSHOP
                 {
                     int ind=sviartikli.IndexOf(neobirsaniart[selectedIndex]);
                 sviartikli[ind].Obrisati(true);
+                DABArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
             }
+            neobirsaniart.Clear();
            
         }
         private void PregledArtikli(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni)
@@ -1046,16 +1062,20 @@ namespace VUV_PCSHOP
                     Meni mainMeni2= new Meni(options2, prompt2);
                     int selectedIndex2 = mainMeni2.Run();
                     if(selectedIndex2!=2)
+                    { 
                     artikliukat[selectedIndex1].Dostupnost = options2[selectedIndex2];
+                    }
                     else
                     {
                         goto izbor2;
+                      
                     }
                 }
                 Console.ReadKey();
                 Console.Clear();
                 PregledArtikli(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
             }
+            
 
         }
         private void KreirajRacun(ref List<Zaposlenik> zaposlenici, ref List<Artikl> sviartikli, ref Dictionary<string, string> kategorije, ref List<Racun> racuni,ref Racun r1)
@@ -1089,31 +1109,26 @@ namespace VUV_PCSHOP
                                     r1.Datum = DateTime.Now;
                                     
                                     racuni.Add(r1);
-                            //for (int i = 0; i < r1.Stavke.Count; i++)
-                            //{
-                            //    Console.WriteLine("Stavka " + i + "." + r1.Stavke[i].Naziv);
+                            Console.WriteLine("Racun br:"+r1.Sifraracuna);
+                            Console.WriteLine("Zaposlenik:"+PrijaveljniZaposlenik.prijavljeni.IspisPunogImena());
+                            Console.WriteLine("Kupljeni artikli:");
+                            Console.WriteLine("");
+                            for (int i = 0; i < r1.Stavke.Count; i++)
+                            {
+                                Console.WriteLine(r1.Stavke[i].Kolicina+ "x   " + r1.Stavke[i].Naziv);
 
-                            //}
-                            //Console.ReadKey();
-                            //        foreach (Racun rac in racuni)
-                            //        {
-
-                            //            for (int j = 0; j < rac.Stavke.Count; j++)
-                            //            {
-                            //                Console.WriteLine("Naziv:"+rac.Stavke[j].Naziv);
-                            //                Console.WriteLine("Kolicina:"+rac.Stavke[j].Kolicina);
-                                       
-                            //            }
-
-
-                            //        }
-                            //Console.ReadKey();
-                                    r1 = null;
+                            }
+                            Console.WriteLine("\nUkupna cijena:"+r1.Ukupaniznos+"kn");
+                            Console.ReadKey();
+                    
+    
+                            r1 = null;
 
                                 }
                                 else
                                 {
                                     Console.WriteLine("prazan racun!");
+                            Console.ReadKey();
                                 }
                         Izbornik(ref zaposlenici, ref sviartikli, ref kategorije, ref racuni);
                                 break;
@@ -1171,7 +1186,7 @@ namespace VUV_PCSHOP
                     {
                         if (art.Kategorija == kljuckat[selectedIndex] && art.Obrisano=="ne")
                         {
-                        if (art.Dostupnost == "da")
+                        if (art.Dostupnost == "da"&&art.Obrisano=="ne")
                             artikliukat.Add(art);
         
 
@@ -1185,7 +1200,7 @@ namespace VUV_PCSHOP
                     {
                     if (art.Kategorija == kljuckat[selectedIndex]&&art.Obrisano=="ne")
                     {
-                        if (art.Dostupnost == "da")
+                        if (art.Dostupnost == "da"&&art.Obrisano=="ne")
                         { 
                       
                             j++;
@@ -1199,7 +1214,7 @@ namespace VUV_PCSHOP
                     {
                     if (art.Kategorija == kljuckat[selectedIndex])
                     {
-                        if (art.Dostupnost == "da")
+                        if (art.Dostupnost == "da"&&art.Obrisano=="ne")
                         {
                             options1[k] = art.Naziv;
                             k++;
@@ -1261,9 +1276,10 @@ namespace VUV_PCSHOP
                 {
                     if (rac.Sifrazaposlenika == zaposlenici[selectedIndex].Sifrazaposlenika && rac.Stonirano=="ne")
                     { 
-                    Console.WriteLine("Sifra Racuna:"+rac.Sifraracuna);
+                    Console.WriteLine("\nSifra Racuna:"+rac.Sifraracuna);
                     Console.WriteLine("Datum:"+rac.Datum);
-                    Console.WriteLine("Iznos:"+rac.Ukupaniznos);
+                    Console.WriteLine("Iznos:"+rac.Ukupaniznos+"kn");
+                            Console.WriteLine();
                     }
                 }
                     Console.ReadKey();

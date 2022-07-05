@@ -12,7 +12,7 @@ namespace VUV_PCSHOP
         private DateTime _datum;
         private List<Stavka> stavke;
         private string _stonirano;
-        Random rand = new Random();
+        private Random rand = new Random();
         public Racun(string sracun,string szaposlenik,double uiznos,DateTime datum,List<Stavka>stavka)
         {
             _sifraracuna = sracun;

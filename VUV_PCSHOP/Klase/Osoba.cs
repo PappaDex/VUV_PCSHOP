@@ -6,6 +6,6 @@ namespace VUV_PCSHOP
 {
     abstract class Osoba
     {
-
+        public abstract string IspisPunogImena();
     }
 }

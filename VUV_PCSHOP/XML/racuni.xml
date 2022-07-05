@@ -1,21 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
   <racuni>
-    <racun sifrazaposlenika="1" sifraracuna="5683" ukupaniznos="3699" datum="6/21/2022 3:49:12 PM" stonirano="da">
-      <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="1" ukupnacijena="3699" />
+    <racun sifrazaposlenika="1" sifraracuna="2969" ukupaniznos="8036" datum="7/5/2022 3:22:41 AM" stonirano="ne">
+      <stavka kategorijaartikla="LAP" nazivartikla="Notebook Lenovo IdeaPad Ultraslim 3" opisartikla="AMD 3020e,8gb DDR4,256GB NVMe SSD" jedinicamjereartikla="kom" cijenaartikla="1799" kolicina="1" ukupnacijena="1799" />
+      <stavka kategorijaartikla="KOM" nazivartikla="Procesor Intel Core i9-12900KF" opisartikla="5.2GHz, 30MB, LGA1700, BX8071512900KF" jedinicamjereartikla="kom" cijenaartikla="5499" kolicina="1" ukupnacijena="5499" />
+      <stavka kategorijaartikla="SOF" nazivartikla="Gembird HDMI extender over RJ45" opisartikla="60 m" jedinicamjereartikla="kom" cijenaartikla="738" kolicina="1" ukupnacijena="738" />
     </racun>
-    <racun sifrazaposlenika="2" sifraracuna="6243" ukupaniznos="108699" datum="6/21/2022 3:50:50 PM" stonirano="ne">
-      <stavka kategorijaartikla="LAP" nazivartikla="Laptop COOL" opisartikla="Odlican Uredski laptop" jedinicamjereartikla="kol" cijenaartikla="3699" kolicina="1" ukupnacijena="3699" />
-      <stavka kategorijaartikla="KON" nazivartikla="PS5" opisartikla="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjereartikla="kom" cijenaartikla="5000" kolicina="21" ukupnacijena="105000" />
+    <racun sifrazaposlenika="2" sifraracuna="7599" ukupaniznos="33259" datum="7/5/2022 3:23:18 AM" stonirano="ne">
+      <stavka kategorijaartikla="KON" nazivartikla="Konzola PlayStation 5 B Chassis" opisartikla="Destruction AllStars PS5 + Horizon Forbidden West PS5 + PS Plus 365 Dana" jedinicamjereartikla="kom" cijenaartikla="6299" kolicina="1" ukupnacijena="6299" />
+      <stavka kategorijaartikla="SOF" nazivartikla="Gembird HDMI extender over RJ45" opisartikla="60 m" jedinicamjereartikla="kom" cijenaartikla="738" kolicina="1" ukupnacijena="738" />
+      <stavka kategorijaartikla="MOB" nazivartikla="Mobitel Apple iPhone 13 Pro Max" opisartikla="1TB, Silver" jedinicamjereartikla="kom" cijenaartikla="15299" kolicina="1" ukupnacijena="15299" />
+      <stavka kategorijaartikla="MON" nazivartikla="Monitor Samsung 49inch Odyssey" opisartikla="AMD FreeSync Premium Pro,HDMI, 2xDP" jedinicamjereartikla="kom" cijenaartikla="10923" kolicina="1" ukupnacijena="10923" />
     </racun>
-    <racun sifrazaposlenika="1" sifraracuna="2453" ukupaniznos="798" datum="6/21/2022 5:04:05 PM" stonirano="ne">
-      <stavka kategorijaartikla="KOM" nazivartikla="HyperX Ram 4GB" opisartikla="DDR4 2333hz ram" jedinicamjereartikla="GB" cijenaartikla="399" kolicina="2" ukupnacijena="798" />
+    <racun sifrazaposlenika="3" sifraracuna="2662" ukupaniznos="18853" datum="7/5/2022 3:23:45 AM" stonirano="ne">
+      <stavka kategorijaartikla="MOB" nazivartikla="Mobitel Apple iPhone 13 Pro Max" opisartikla="1TB, Silver" jedinicamjereartikla="kom" cijenaartikla="15299" kolicina="1" ukupnacijena="15299" />
+      <stavka kategorijaartikla="MOB" nazivartikla="Mobitel Nokia 6310" opisartikla=" 2.8inch, 16MB RAM, 8MB Memorija," jedinicamjereartikla="kom" cijenaartikla="469" kolicina="4" ukupnacijena="1876" />
+      <stavka kategorijaartikla="SOF" nazivartikla="Microsoft Windows 11 Home" opisartikla="Eng 64-bit, KW9-00632 - MAXI PONUDA" jedinicamjereartikla="kom" cijenaartikla="839" kolicina="2" ukupnacijena="1678" />
     </racun>
-    <racun sifrazaposlenika="1" sifraracuna="8898" ukupaniznos="1197" datum="6/21/2022 5:51:34 PM" stonirano="ne">
-      <stavka kategorijaartikla="KOM" nazivartikla="Ram" opisartikla="ram" jedinicamjereartikla="gb" cijenaartikla="399" kolicina="3" ukupnacijena="1197" />
+    <racun sifrazaposlenika="4" sifraracuna="3150" ukupaniznos="55649" datum="7/5/2022 3:24:20 AM" stonirano="ne">
+      <stavka kategorijaartikla="KOM" nazivartikla="Procesor Intel Core i9-12900KF" opisartikla="5.2GHz, 30MB, LGA1700, BX8071512900KF" jedinicamjereartikla="kom" cijenaartikla="5499" kolicina="1" ukupnacijena="5499" />
+      <stavka kategorijaartikla="KOM" nazivartikla="Grafička PNY NVIDIA" opisartikla="RTXA4500, 20GB GDDR6 ECC" jedinicamjereartikla="kom" cijenaartikla="18246" kolicina="1" ukupnacijena="18246" />
+      <stavka kategorijaartikla="KOM" nazivartikla="Memorija G.Skill Trident Z5 RGB" opisartikla="32GB (2x16GB), DDR5 6000MHz, CL36" jedinicamjereartikla="kom" cijenaartikla="3463" kolicina="1" ukupnacijena="3463" />
+      <stavka kategorijaartikla="KOM" nazivartikla="Matična ploča Asus Maximus Z690" opisartikla="Formula DDR5, Intel LGA1700, WiFi 6E, Bluetooth, ATX" jedinicamjereartikla="kom" cijenaartikla="6595" kolicina="1" ukupnacijena="6595" />
+      <stavka kategorijaartikla="MON" nazivartikla="Monitor Samsung 49inch Odyssey" opisartikla="AMD FreeSync Premium Pro,HDMI, 2xDP" jedinicamjereartikla="kom" cijenaartikla="10923" kolicina="2" ukupnacijena="21846" />
     </racun>
-    <racun sifrazaposlenika="1" sifraracuna="4920" ukupaniznos="1197" datum="6/21/2022 5:53:10 PM" stonirano="ne">
-      <stavka kategorijaartikla="KOM" nazivartikla="Ram" opisartikla="ram" jedinicamjereartikla="gb" cijenaartikla="399" kolicina="3" ukupnacijena="1197" />
+    <racun sifrazaposlenika="5" sifraracuna="7146" ukupaniznos="26420" datum="7/5/2022 3:24:57 AM" stonirano="ne">
+      <stavka kategorijaartikla="KON" nazivartikla="Konzola Xbox Series X" opisartikla="1TB" jedinicamjereartikla="kom" cijenaartikla="4999" kolicina="1" ukupnacijena="4999" />
+      <stavka kategorijaartikla="MON" nazivartikla="Monitor Samsung 49inch Odyssey" opisartikla="AMD FreeSync Premium Pro,HDMI, 2xDP" jedinicamjereartikla="kom" cijenaartikla="10923" kolicina="1" ukupnacijena="10923" />
+      <stavka kategorijaartikla="MOB" nazivartikla="Mobitel Xiaomi Poco F4 GT" opisartikla="6.67inch 120Hz, 8GB RAM, 128GB" jedinicamjereartikla="kom" cijenaartikla="5249" kolicina="2" ukupnacijena="10498" />
     </racun>
   </racuni>
 </vuv_pcshop>

@@ -1,9 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <vuv_pcshop>
   <artikli>
-    <artikl kategorija="LAP" naziv="Laptop COOL" opis="Odlican Uredski laptop" jedinicamjere="kol" cijena="3699" dostupnost="da" obrisano="ne" />
-    <artikl kategorija="KOM" naziv="HyperX Ram 4GB" opis="DDR4 2333hz ram" jedinicamjere="GB" cijena="399" dostupnost="da" obrisano="ne" />
-    <artikl kategorija="KOM" naziv="Ram" opis="ram" jedinicamjere="gb" cijena="399" dostupnost="da" obrisano="ne" />
-    <artikl kategorija="KON" naziv="PS5" opis="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjere="kom" cijena="5000" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="LAP" naziv="Laptop COOL" opis="Odlican Uredski laptop" jedinicamjere="kol" cijena="3699" dostupnost="da" obrisano="da" />
+    <artikl kategorija="KOM" naziv="HyperX Ram 4GB" opis="DDR4 2333hz ram" jedinicamjere="GB" cijena="399" dostupnost="da" obrisano="da" />
+    <artikl kategorija="KOM" naziv="Ram" opis="ram" jedinicamjere="gb" cijena="399" dostupnost="da" obrisano="da" />
+    <artikl kategorija="KON" naziv="PS5" opis="GIGA PLAYSTATION GAMING IPGHRAHIP4" jedinicamjere="kom" cijena="5000" dostupnost="da" obrisano="da" />
+    <artikl kategorija="LAP" naziv="Laptop" opis="Lap" jedinicamjere="2" cijena="2" dostupnost="da" obrisano="da" />
+    <artikl kategorija="LAP" naziv="Notebook Lenovo IdeaPad Ultraslim 3" opis="AMD 3020e,8gb DDR4,256GB NVMe SSD" jedinicamjere="kom" cijena="1799" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="LAP" naziv="Notebook Toshiba Dynabook" opis="Intel Celeron 5205U,4GB DDR4, 128GB SSD Intel UHD Graphics" jedinicamjere="kom" cijena="2299" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="LAP" naziv="Notebook Asus 14, X409FA-BV311" opis="Intel Core i3 10110U,8GB DDR4,256GB NVMe SSD,Intel HD Graphics 520" jedinicamjere="kom" cijena="2315" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="LAP" naziv="Notebook Lenovo ThinkPad P15 Gen 2" opis="Intel Xeon W-11955M,64GB DDR4,2TB NVMe SSD,NVIDIA RTX A5000 16GB" jedinicamjere="kom" cijena="57206" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KOM" naziv="Procesor Intel Core i9-12900KF" opis="5.2GHz, 30MB, LGA1700, BX8071512900KF" jedinicamjere="kom" cijena="5499" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KOM" naziv="Matična ploča Asus Maximus Z690" opis="Formula DDR5, Intel LGA1700, WiFi 6E, Bluetooth, ATX" jedinicamjere="kom" cijena="6595" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KOM" naziv="Memorija G.Skill Trident Z5 RGB" opis="32GB (2x16GB), DDR5 6000MHz, CL36" jedinicamjere="kom" cijena="3463" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KOM" naziv="Grafička PNY NVIDIA" opis="RTXA4500, 20GB GDDR6 ECC" jedinicamjere="kom" cijena="18246" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KON" naziv="Konzola PlayStation 5 B Chassis" opis="Destruction AllStars PS5 + Horizon Forbidden West PS5 + PS Plus 365 Dana" jedinicamjere="kom" cijena="6299" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KON" naziv="Konzola Nintendo Switch" opis="OLED, bijela" jedinicamjere="kom" cijena="3199" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KON" naziv="Konzola Xbox Series X" opis="1TB" jedinicamjere="kom" cijena="4999" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="KON" naziv="Konzola Xbox Series S" opis="512GB" jedinicamjere="kom" cijena="2699" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MON" naziv="Monitor Samsung 49inch Odyssey" opis="AMD FreeSync Premium Pro,HDMI, 2xDP" jedinicamjere="kom" cijena="10923" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MON" naziv="Tipkovnica Razer BlackWidow V3 Pro" opis="bežična, bluetooth, gaming, mehanička, green switches, RGB" jedinicamjere="kom" cijena="2170" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MON" naziv="Miš Razer Viper V2 Pro" opis="bežični, gaming, 30000dpi, crni, RZ01-04390100-R3G1" jedinicamjere="kom" cijena="1339" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MON" naziv="Slušalice Razer Barracuda Pro" opis="bežične, gaming, eliminacija buke, mikrofon, over-ear" jedinicamjere="kom" cijena="2297" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="SOF" naziv="Gembird HDMI extender over RJ45" opis="60 m" jedinicamjere="kom" cijena="738" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="SOF" naziv="Roline USB Type C - DisplayPort kabel" opis="M/M, 2.0 m" jedinicamjere="kom" cijena="184" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="SOF" naziv="Microsoft Windows 11 Home" opis="Eng 64-bit, KW9-00632 - MAXI PONUDA" jedinicamjere="kom" cijena="839" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="SOF" naziv="Antivirusni program Kaspersky" opis="Internet Security 5 device 1 year" jedinicamjere="kom" cijena="402" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MOB" naziv="Mobitel Apple iPhone 13 Pro Max" opis="1TB, Silver" jedinicamjere="kom" cijena="15299" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MOB" naziv="Mobitel Samsung Galaxy S22 Ultra" opis="6.8inch 120Hz, 12GB RAM," jedinicamjere="kom" cijena="11499" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MOB" naziv="Mobitel Xiaomi Poco F4 GT" opis="6.67inch 120Hz, 8GB RAM, 128GB" jedinicamjere="kom" cijena="5249" dostupnost="da" obrisano="ne" />
+    <artikl kategorija="MOB" naziv="Mobitel Nokia 6310" opis=" 2.8inch, 16MB RAM, 8MB Memorija," jedinicamjere="kom" cijena="469" dostupnost="da" obrisano="ne" />
   </artikli>
 </vuv_pcshop>

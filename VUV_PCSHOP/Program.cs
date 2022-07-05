@@ -1,4 +1,18 @@
-﻿using System;
+﻿// 
+//
+//
+//       Autor: Đurica Dakić
+//       Projekt: Trgovina informaticke opreme
+//       Predmet:Objektno-orijentirano programiranje
+//       Ustanova:VUV
+//       Godina:2022
+//
+//
+
+
+
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -6,6 +20,7 @@ namespace VUV_PCSHOP
 {
     class Program
     {
+        //Nakon logina kao zaposlenik se postavlja taj zaposlenik u globalnu staticku varijablu zbog lakse upotrebe u ostatku programa
       public static class PrijaveljniZaposlenik
         {
           public  static Zaposlenik prijavljeni;
@@ -14,6 +29,7 @@ namespace VUV_PCSHOP
         {
             public static string lokacija;
         }
+        //Funkcija koja povlaci lokaciju fileo-va dinamicno
         static void LokacijaDatoteke()
         {
             string lokacija =Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
@@ -21,378 +37,7 @@ namespace VUV_PCSHOP
             FileLocation.lokacija = lokacija;
         }
 
-        static void KreiranjeRacuna(ref List<Racun> racuni,ref Dictionary<string,string>kategorije,ref List<Artikl>artikli) 
-        {
-            try
-            {
-
-                Racun r1 = new Racun();
-                do
-                {
-                    Console.WriteLine("Odabir:" +
-                        "\n1.Dodavanje Stavki" +
-                        "\n2.Zavrsi Racun");
-                  
-                   
-                    string izbor = Console.ReadLine();
-                    int izb;
-                    if (int.TryParse(izbor, out izb) == true)                    {
-                        
-                        switch(izb)
-                        {
-                            case 1:
-                               r1=DodavanjeStavki(ref kategorije, ref artikli,ref racuni);
-                                break;
-                            case 2:
-                                if (r1 != null)
-                                {
-                                    r1.Sifrazaposlenika = PrijaveljniZaposlenik.prijavljeni.Sifrazaposlenika;
-                                    r1.Datum = DateTime.Now;
-                                    racuni.Add(r1);
-                                    foreach (Racun rac in racuni)
-                                    {
-                                        
-                                        for (int j = 0; j < rac.Stavke.Count; j++)
-                                        {
-                                            Console.WriteLine(rac.Stavke[j].Naziv);
-                                            Console.WriteLine(rac.Stavke[j].Kolicina);
-                                        }
-
-
-                                    }
-                                    r1 = null;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("prazan racun!");
-                                    Console.ReadKey();
-                                }
-                                    break;
-                          
-                        }
-                     
-                       
-                    }
-                    else
-                    {
-
-                    }
-
-                } while (Console.ReadKey().Key != ConsoleKey.Escape);
-                Console.Clear();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        static Racun DodavanjeStavki(ref Dictionary<string,string>kategorije,ref List<Artikl>artikli,ref List<Racun>racuni)
-        {
-            try
-            {
-                List<Artikl> artikliukat = new List<Artikl>();
-                List<Stavka> stavke = new List<Stavka>();
-                List<string> kljuckat = new List<string>();
-                Racun r1 = new Racun();
-              
-                do
-                {
-                    int i = 1;
-                    Console.Clear();
-                    Console.WriteLine("Odaberite Kategoriju:");
-                    foreach (KeyValuePair<string, string> kategorija in kategorije)
-                    {
-
-                        Console.WriteLine(i + "." + kategorija.Value);
-                        kljuckat.Add(kategorija.Key);
-
-                        i++;
-                    }
-
-                    string izbor = Console.ReadLine();
-                    int izb;
-                    if (int.TryParse(izbor, out izb) == true)
-                    {
-                        do
-                        {
-                            izb = Convert.ToInt32(izbor);
-                            int j = 1;
-                            Console.WriteLine("Odaberi Artikl:");
-                            foreach (Artikl art in artikli)
-                            {
-                                if (art.Kategorija == kljuckat[izb - 1])
-                                {
-                                    Console.WriteLine(j + "." + art.Naziv +
-                                        "\nOpis:" + art.Opis);
-                                    artikliukat.Add(art);
-                                    Console.WriteLine("kat:" + kljuckat[izb - 1]);
-                                    j++;
-
-                                }
-
-                            }
-                            izbor = Console.ReadLine();
-                            if (int.TryParse(izbor, out int izb2) == true)
-                            {
-                                izb2 = Convert.ToInt32(izbor);
-
-                                Console.Write("Kolicina:");
-                                int kol = Convert.ToInt32(Console.ReadLine());
-
-                                Stavka s1 = new Stavka(artikliukat[izb2 - 1], kol);
-
-
-                                Console.WriteLine("test:");
-                                Console.WriteLine(s1.Kategorija);
-                                r1.DodavanjeStavke(s1);
-                            }
-                            Console.WriteLine("ESC-izlaz");
-                            artikliukat.Clear();
-                        } while (Console.ReadKey().Key != ConsoleKey.Escape);
-
-
-                    }
-                } while (Console.ReadKey().Key != ConsoleKey.Escape);
-                return (r1);
-
-
-            }
-
-
-
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        static void DodavanjeArtikla(ref List<Artikl> sviartikli,ref Dictionary<string,string>kategorije)
-        {
-            try
-            {
-               
-                do
-                {
-                    List<string> kljuckat = new List<string>();
-                    int i = 1;
-                    Console.WriteLine("Odaberite Kategoriju:");
-                    foreach(KeyValuePair<string,string> kategorija in kategorije)
-                    {
-                        Console.WriteLine(i+"."+kategorija.Value);
-                        kljuckat.Add(kategorija.Key);
-                        i++;
-                    }
-                    string izbor = Console.ReadLine();
-                    int izb;
-                    if (int.TryParse(izbor, out izb) == true)
-                    {   Console.WriteLine("Naziv:");
-                            string naziv = Console.ReadLine();
-                            Console.WriteLine("Opis:");
-                            string opis = Console.ReadLine();
-                            Console.WriteLine("Jedinica Mjere:");
-                            string mjera = Console.ReadLine();
-                            Console.WriteLine("Jedinicna cijena:");
-                            double kolicina=Convert.ToDouble(Console.ReadLine());
-                            Artikl noviartikl = new Artikl(naziv,opis,mjera,kolicina);
-                        izb = Convert.ToInt32(izbor);
-                        noviartikl.DodavanjeKategorije(kljuckat[izb - 1]);
-                        sviartikli.Add(noviartikl);
-                        Console.WriteLine("Dodavanje Uspjesno!");
-                        Console.ReadKey();
-                        Console.Clear();
-                        
-                        break;
-
-                    }
-                    else
-                    {
-
-                    }
-
-                } while (Console.ReadKey().Key != ConsoleKey.Escape);
-                Console.Clear();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        static void AzuriranjeArtikla(ref List<Artikl> artikli, ref Dictionary<string, string> kategorije)
-        {
-            try
-            {
-                do
-                {
-                    List<string> listakljuceva = new List<string>();
-                    int i = 1;
-                    Console.WriteLine("Odaberite Artikl Koji zelite azurirat:");
-                    foreach(Artikl art in artikli)
-                    {
-                        Console.WriteLine(i+"."+art.Naziv);
-                        i++;
-
-                    }
-
-                    string izbor1 = Console.ReadLine();
-                    if(int.TryParse(izbor1,out int izb1))
-                    {
-                        izb1 = Convert.ToInt32(izbor1);
-                    }
-                    do
-                    {
-                        Console.WriteLine("Odaberite sta zelite azurirat" +
-                            "\n1.Kategoriju" +
-                            "\n2.Naziv" +
-                            "\n3.Opis" +
-                            "\n4.Jedinicnu Mjeru" +
-                            "\n5.Cijenu" +
-                            "\nESC-Exit");
-
-                        string izbor = Console.ReadLine();
-                        if (int.TryParse(izbor, out int izb))
-                        {
-                            izb = Convert.ToInt32(izbor);
-                            if(izb==1)
-                            {
-                                Console.WriteLine("Odaberite novu kategoriju:");
-                                int j = 1;
-                                foreach(KeyValuePair<string,string> kljuc in kategorije)
-                                {
-                                    Console.WriteLine(j+"."+kljuc.Value);
-                                    listakljuceva.Add(kljuc.Value);
-                                    j++;
-                                }
-                                string izbor3= Console.ReadLine();
-                                if(int.TryParse(izbor3,out int izb3))
-                                {
-                                    artikli[izb1 - 1].Kategorija = listakljuceva[izb3];
-                                }
-                                
-                            }
-                            if(izb==2)
-                            {
-                                Console.WriteLine("Unesite novi naziv:");
-                                string naziv = Console.ReadLine();
-                                artikli[izb - 1].Naziv = naziv;
-                            }
-                            if(izb==3)
-                            {
-                                Console.WriteLine("Unesite novi opis:");
-                                string opis = Console.ReadLine();
-                                artikli[izb - 1].Opis = opis;
-                            }
-                            if(izb==4)
-                            {
-                                Console.WriteLine("Unesite novu jedinicnu mjeru:");
-                                string jedmjer = Console.ReadLine();
-                                artikli[izb - 1].JedinicaMjere = jedmjer;
-                            }
-                            if(izb==5)
-                            {
-                                Console.WriteLine("Unesite novu cijenu:");
-                                string cijena = Console.ReadLine();
-                                if(int.TryParse(cijena,out int cij))
-                                artikli[izb - 1].Cijena = cij;
-                            }
-                        }
-
-                    } while (Console.ReadKey().Key != ConsoleKey.Escape);
-
-
-                } while (Console.ReadKey().Key != ConsoleKey.Escape);
-                }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        static void BrisanjeArtikla(ref List<Artikl> artikli)
-        {
-            try
-            {
-
-                int i = 0;
-            Console.WriteLine("Odaberite Artikl koji zelite obrisat");
-            foreach(Artikl art in artikli)
-                {
-                    Console.WriteLine(i+"."+art.Naziv);
-                    i++;
-                }
-                string odabir = Console.ReadLine();
-                if(int.TryParse(odabir,out int odb))
-                {
-                    artikli.RemoveAt(i-1);
-                }
-
-             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        static void Startup(ref List<Zaposlenik>zaposlenici,ref List<Artikl>sviartikli,ref Dictionary<string,string>kategorije,ref List<Racun>racuni)
-        {
-            try
-            {
-                do
-                {
-                    odabir:
-                    int i = 1;
-                    Console.WriteLine("Odaberite zaposlenika:" +
-                        "\nESC.Logout");
-                    foreach(Zaposlenik z in zaposlenici)
-                    {
-                        Console.WriteLine(i+"."+z.IspisPunogImena());
-                        i++;
-                    }
-                    string izbor = Console.ReadLine();
-                    int izb;
-                    if (int.TryParse(izbor, out izb) == true)
-                    {
-                        if(izb==-1)
-                        {
-                            Console.WriteLine("OIB:");
-                            string oibz=Console.ReadLine();
-                            Console.WriteLine("Ime:");
-                            string imez=Console.ReadLine();
-                            Console.WriteLine("Prezime:");
-                            string prezimez=Console.ReadLine();
-                            Console.WriteLine("Sifra Zaposlenika:");
-                            string sifraz=Console.ReadLine();
-                            Zaposlenik novizaposlenik = new Zaposlenik(oibz, imez, prezimez, sifraz);
-                            zaposlenici.Add(novizaposlenik);
-                            goto odabir;
-                        }
-                        izb = Convert.ToInt32(izbor);
-                       PrijaveljniZaposlenik.prijavljeni=zaposlenici[izb-1];
-                        Console.WriteLine("Odabir uspjesan!"+PrijaveljniZaposlenik.prijavljeni.IspisPunogImena());
-                        Console.ReadKey();
-                        Console.Clear();
-
-
-                        
-                        Izbornik(ref sviartikli,ref kategorije,ref racuni);
-                        break;
-                    
-                    }
-                    else
-                    {
-
-                    }
-                    
-                } while (Console.ReadKey().Key != ConsoleKey.Escape);
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+ 
         static void SaveListZaposlenici(ref List<Zaposlenik> zaposlenici)
         {
             string lok = FileLocation.lokacija + "\\XML\\zaposlenici.xml";
@@ -408,12 +53,25 @@ namespace VUV_PCSHOP
             XmlNodeList zaposlenik = xmlObject.SelectNodes("//vuv_pcshop/osoba/zaposlenici/zaposlenik");
         foreach(XmlNode zap in zaposlenik)
             {
+                if(zap.Attributes["otkaz"] != null && zap.Attributes["otkaz"].Value != null)
+                {     
                 zaposlenici.Add(new Zaposlenik(
                     zap.Attributes["oib"].Value,
                     zap.Attributes["ime"].Value,
                     zap.Attributes["prezime"].Value,
-                    zap.Attributes["sifrazaposlenika"].Value
+                    zap.Attributes["sifrazaposlenika"].Value,
+                    zap.Attributes["otkaz"].Value
                     ));
+                }
+                else
+                {
+                    zaposlenici.Add(new Zaposlenik(
+                zap.Attributes["oib"].Value,
+                zap.Attributes["ime"].Value,
+                zap.Attributes["prezime"].Value,
+                zap.Attributes["sifrazaposlenika"].Value
+                ));
+                }
             }
         }      
         static void SaveListAdmini(ref List<Admin> admins)
@@ -460,7 +118,7 @@ namespace VUV_PCSHOP
                     art.Attributes["naziv"].Value,
                     art.Attributes["opis"].Value,
                     art.Attributes["jedinicamjere"].Value,
-                  Convert.ToInt32(art.Attributes["cijena"].Value),
+                  Convert.ToDouble(art.Attributes["cijena"].Value),
                   art.Attributes["dostupnost"].Value,
                   art.Attributes["obrisano"].Value
                     )); ; ;
@@ -471,7 +129,7 @@ namespace VUV_PCSHOP
                     art.Attributes["naziv"].Value,
                     art.Attributes["opis"].Value,
                     art.Attributes["jedinicamjere"].Value,
-                  Convert.ToInt32(art.Attributes["cijena"].Value)
+                  Convert.ToDouble(art.Attributes["cijena"].Value)
                     ));;
                 }
             }
@@ -561,44 +219,6 @@ namespace VUV_PCSHOP
                     );
             }
         }
-            
-        static void ArtikliMeni(ref List<Artikl>artikli,ref Dictionary<string,string>kategorije)
-        {
-
-            do
-            {
-                Console.WriteLine("Izbornik" +
-                    "\n1.Dodavanje" +
-                    "\n2.Azuriranje" +
-                    "\n3.Brisanje");
-
-                string izbor = Console.ReadLine();
-                if (int.TryParse(izbor, out int izb))
-                {
-                    izb = Convert.ToInt32(izbor);
-                    switch (izb)
-                    {
-                        case 1:
-                            {
-                                DodavanjeArtikla(ref artikli, ref kategorije);
-                                break;
-                            }
-                        case 2:
-                            {
-                                AzuriranjeArtikla(ref artikli, ref kategorije);
-                                break;
-                            }
-                        case 3:
-                            BrisanjeArtikla(ref artikli);
-                            break;
-                    }
-                }
-
-            } while (Console.ReadKey().Key != ConsoleKey.Escape);
-        }
-
-    
-
         static void SpremanjeUXMLzaposlenike(ref List<Zaposlenik> zaposlenici)
         {
             string xml = "";
@@ -628,7 +248,9 @@ namespace VUV_PCSHOP
                 XmlAttribute sifraAttr = xmlObject.CreateAttribute("sifrazaposlenika");
                 sifraAttr.Value = zaposlenik.Sifrazaposlenika.ToString();
                 noviNode.Attributes.Append(sifraAttr);
-
+                XmlAttribute otkazAttr = xmlObject.CreateAttribute("otkaz");
+                otkazAttr.Value = zaposlenik.VOtkaz.ToString();
+                noviNode.Attributes.Append(otkazAttr);
                 zaposleniciNode.AppendChild(noviNode);
                     }
             xmlObject.Save(lokacijaxmla);
@@ -795,53 +417,6 @@ namespace VUV_PCSHOP
                 kategorijeNode.AppendChild(noviNode);
                     }
             xmlObject.Save(lokacijaxmla);
-        }
-        static void Izbornik(ref List<Artikl>artikli,ref Dictionary<string,string>kategorije,ref List<Racun>racuni)
-        {
-            try
-            {
-
-
-                while (true) { 
-                    Console.WriteLine("" +
-                    "1.Dodavanje/Azuriranje/Brisanje Artikla" +
-                    "\n2.Pregled artikala" + 
-                    "\n3.Kreiraj Racun" +
-                    "\n4.Pregled racuna po zaposleniku" +
-                    "\nESC.izlaz");
-
-                    string switch1 = Console.ReadLine();
-                    int sw1int;
-                    if (int.TryParse(switch1, out sw1int) == true)
-                    {
-                        
-                        switch (sw1int)
-                        {
-                            case 1:
-                                Console.Clear();
-                                ArtikliMeni(ref artikli,ref kategorije);
-                                break;
-                            case 3:
-                                Console.Clear();
-                                KreiranjeRacuna(ref racuni,ref kategorije,ref artikli);
-                                    break;
-                            default:
-                                break;
-                        }
-                    }
-
-                    Console.Clear();
-
-                }
-
-            }
-
-
-            catch (Exception)
-            {
-
-                throw;
-            }
         }
         static void Main(string[] args)
         {
